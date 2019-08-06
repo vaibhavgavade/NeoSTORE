@@ -1,0 +1,35 @@
+const images = {
+    username:require('../Images/username_icon.png'),
+    password:require('../Images/password_icon.png'),
+    Account:require('../Images/Plus.png'),
+    email:require('../Images/email_icon.png'),
+    cellphone:require('../Images/cellphone.png'),
+    checkedImg:require('../Images/checked_icon.png'),
+    uncheckImg:require('../Images/uncheck_icon.png'),
+    sliderOne:require('../Images/slider_img1.jpg'),
+    sliderTwo:require('../Images/slider_img2.jpg'),
+    sliderThree:require('../Images/slider_img3.jpg'),
+    sliderFour:require('../Images/slider_img4.jpg'),
+    tableImg:require('../Images/tableicon.png'),
+    sofaImg:require('../Images/sofaicon.png'),
+    chairImg:require('../Images/chairsicon.png'),
+    cupboardImg:require('../Images/cupboardicon.png'),
+    menuImg:require('../Images/menu_icon.png'),
+    chairIcon:require('../Images/chair_icon.png'),
+    sofaIcon:require('../Images/sofa_icon.png'),
+    tableIcon:require('../Images/tables_icon.png'),
+    cartIcon:require('../Images/shopping_cart.png'),
+    cupboardIcon:require('../Images/cupboard_icon.png'),
+    shareImg:require('../Images/share.png'),
+    starCheck:require('../Images/star_check.png'),
+    starUncheck:require('../Images/star_unchek.png'),
+    myOrdersImg:require('../Images/myorders_icon.png'),
+    logOutimg:require('../Images/logout_icon.png'),
+    profile:require('../Images/profile.jpeg'),
+    withoutChknImg:require('../Images/chkn.png'),
+    withchkyImg:require('../Images/chky.png'),
+    dateBirth:require('../Images/dob_icon.png')
+
+
+}
+export default images;
