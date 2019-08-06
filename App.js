@@ -99,7 +99,11 @@ cart:{
 Account:{
   screen:MyAccount,
   navigationOptions:{
-    title:'My Account'
+    title:'My Account',
+    headerStyle:{
+        backgroundColor:'#fe3f3f'
+    },
+    headerTintColor:'white'
   }
 },
 
@@ -114,7 +118,15 @@ pDetail:{
   screen:productDetail
 },
 ResetPassword:{
-  screen:ResetPassword
+  screen:ResetPassword,
+    navigationOptions:{
+   headerBackTitle:null,
+      title:'Reset password',
+  headerStyle:{
+    backgroundColor:'#fe3f3f'
+  },
+  headerTintColor:'white'
+},
 },
 order:{
   screen:orderPlace

@@ -12,6 +12,13 @@ export default class ResetPassword extends Component {
     };
   }
 
+  static navigationOptions =({navigation})=>({
+  
+    headerTitleStyle:{
+      fontSize:25,
+   }
+  });
+
   render() {
     return (
       <View style={resetStyles.container}>
@@ -30,8 +37,7 @@ export default class ResetPassword extends Component {
 const resetStyles=StyleSheet.create({
     container:{
         flex:1 ,
-        justifyContent:'center',
-       
-        backgroundColor:'#fe3f3f'
+       backgroundColor:'#fe3f3f',
+
     }
 })

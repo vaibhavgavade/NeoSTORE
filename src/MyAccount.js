@@ -14,6 +14,12 @@ export default class MyAccount extends Component {
     };
   }
 
+  static navigationOptions =({navigation})=>({
+    headerTitleStyle:{
+      fontSize:25,
+   }
+  });
+
   ProfileBtnAction(){
     {this.props.navigation.navigate('ResetPassword')}
   }

@@ -87,9 +87,9 @@ export default class OrderDetail extends Component {
        
         
        )}/>
-       <View style={{flexDirection:'row',marginTop:20}}>
-       <Text style={{paddingLeft:20,fontSize:25,fontWeight:'bold'}}>Total</Text>
-       <Text style={{paddingHorizontal:120,fontSize:25,fontWeight:'bold'}}> {this.state.total}</Text>
+       <View style={{flexDirection:'row',marginTop:40}}>
+       <Text style={{paddingLeft:25,fontSize:25,fontWeight:'bold'}}>Total</Text>
+       <Text style={{paddingHorizontal:115,fontSize:25,fontWeight:'bold'}}> ₹  {this.state.total}</Text>
        </View>
       
         

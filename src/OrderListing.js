@@ -53,6 +53,9 @@ export default class OrderListing extends Component {
               <Text style={orderlistStyle.costStyle}>₹:{item.cost} </Text>
               </View>
             <Text style={orderlistStyle.orderDate}>Order Data:{item.created}</Text>
+            <View
+              style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:20}}
+            />
           
             </TouchableOpacity>
             </View>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity} from 'react-native';
-import RoundButton from '../Component/RoundButton';
+import {Dropdown} from 'react-native-material-dropdown';
+
 
 
 
@@ -22,6 +23,7 @@ export default class myCart extends Component{
         fontSize:30,
      }
     });
+
     componentDidMount(){
 
         const fetchData={
@@ -52,6 +54,13 @@ export default class myCart extends Component{
     }
     
     render(){
+
+        const data = [{label:'1',vale:'1'},
+        {label:'2',value:'2'},
+        {label:'3',value:'3'},
+        {label:'4',value:'4'},
+        {label:'5',value:'5'}
+        ]
      console.log('API cart data is:',this.state.datasource)
         return(
           
@@ -66,7 +75,12 @@ export default class myCart extends Component{
                              <Text style={{fontSize:20}}>{item.product.name}</Text>
                                 <View style={{flexDirection:'row',flex:1}}>
                                     <Text style={{fontStyle:'italic',fontSize:18}}>{item.product.product_category}</Text>
-                                     <View style={{paddingHorizontal:150}}>
+                                    <Text>{item.quantity}</Text>
+                                   <Dropdown style={{flexDirection:'row'}}
+                                   label='QTY'
+                                   data={data}
+                                   />
+                                     <View style={{paddingHorizontal:120}}>
                                         <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
                                      </View>
                                  </View>
@@ -80,16 +94,19 @@ export default class myCart extends Component{
                    )}
                    keyExtractor={(item, index) => index.toString()}/>
 
-                        <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}} >
+                        <View style={{flex:'10',flexDirection:'row'}} >
                         <Text style={{fontSize:25}}>Total</Text>
 
-                        <Text style={{fontSize:25}} >₹{this.state.total}</Text>
+                        <Text style={{fontSize:25,paddingLeft:20}} >₹{this.state.total}</Text>
                         </View>
                            
+                      
+
                        
-                            <TouchableOpacity onPress={()=>this.props.navigation.navigate('order')} style={{backgroundColor:'red',height:51,width:300, height:52, marginHorizontal:13 ,borderRadius:5,fontWeight:'200',marginTop:20,justifyContent:'center',alignItems:'center'}}>
+                            <TouchableOpacity onPress={()=>this.props.navigation.navigate('order')} style={{}}>
                                 <Text style={{alignSelf:'center',fontSize:30,color:'white'}}>Order Now</Text>
                                 </TouchableOpacity>    
+                               
                    
                              
                </View>
@@ -102,7 +119,7 @@ export default class myCart extends Component{
 const MycartStyles = StyleSheet.create({
     container:{
         flex:1,
-        margin:10,
+        marginTop:10,
         justifyContent:'center',
         alignItems:'center'
      
