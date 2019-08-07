@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,TextInput,TouchableOpacity,Button,StyleSheet} from 'react-native';
+import { View, Text,TextInput,TouchableOpacity,Button,StyleSheet,AsyncStorage} from 'react-native';
 import Input from '../Component/Input';
 import Images from '../Constant/Images'
 import images from '../Constant/Images';
@@ -15,14 +15,27 @@ export default class orderPlace extends Component {
     };
   }
 
-  orderPlacing(){
+  static navigationOptions =({navigation})=>({
+   
+    headerTitleStyle:{
+       fontSize:30,
+    }
+   });
+
+  async orderPlacing(){
+      try{
+          const token = await AsyncStorage.getItem('@NeoStore_at')
+          console.log('order placing token is:'+token)
+      
+
+     
     const username=this.state.username;
     const address=username
       const fetchData={
           method:'POST',
           headers:{
               'Content-Type':'application/x-www-form-urlencoded',
-              'access_token':'5d43da46422a0'
+              'access_token':'5cebf6e5139b6'
             },
             body:`address=${address}`
       };
@@ -32,12 +45,13 @@ export default class orderPlace extends Component {
       .then((responseJson)=>{
                 this.setState({username:responseJson})
         console.log('my order olacing data is:',responseJson)
-      })
-
-      .catch((err)=>
+      }).catch((err)=>
             console.log(err)
       )
-
+    }
+    catch(error){
+      console.log(error.message)
+    }
   }
   myorder(){
 

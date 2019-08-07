@@ -78,7 +78,7 @@ export default class firstScreen extends Component{
             alert("Something Went Wrong");
           }
    
-          
+        
     }
     async saveKey(value1,value2,value3,value4){
                 
@@ -89,10 +89,11 @@ export default class firstScreen extends Component{
         try{
             await AsyncStorage.multiSet([fname,lname,email,acess_token]);
             console.log('Done')
+            
 
         }
-        catch(err){
-            console.log('Error when retriving data',err)
+        catch(error){
+            console.log(error.message)
         }
     }
 

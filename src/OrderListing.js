@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text,Image,FlatList,TouchableOpacity,StyleSheet} from 'react-native';
+import { View, Text,Image,FlatList,TouchableOpacity,StyleSheet,AsyncStorage} from 'react-native';
 
 export default class OrderListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      datasource:[]
+      datasource:[],
+      access_token:''
 
     };
   }
@@ -15,10 +16,21 @@ export default class OrderListing extends Component {
     }
    });
   componentDidMount(){
+            this.orderListAPI()
+       }
+
+
+     async orderListAPI(){
+       try {
+         const token = await AsyncStorage.getItem('@NeoStore_at')
+         console.log('order listing token is:'+token)
+
+
+       
     const fetchData={
       method:'GET',
       headers:{
-        'access_token':'5d43da46422a0',
+         access_token:token,
         'Content_Type':'application/x-www-form-urlencoded'
       },
       
@@ -30,8 +42,15 @@ export default class OrderListing extends Component {
           datasource:responseJson.data
         })
       
-    })
+    }) .catch((err)=>
+      console.error(err))
+
+  }catch(error){
+    console.log(error.message)
   }
+    
+
+       }
 
 
   render() {

@@ -42,7 +42,7 @@ addToCart(){
     const fetchData={
         method:'POST',
         headers:{
-            access_token:'5d43da46422a0',
+            access_token:'5cebf6e5139b6', 
             'Content-Type':'application/x-www-form-urlencoded'
         },
         body:`product_id=${product_id}&quantity=${quantity}`

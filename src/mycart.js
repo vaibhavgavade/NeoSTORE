@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity} from 'react-native';
+import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity,AsyncStorage} from 'react-native';
 import {Dropdown} from 'react-native-material-dropdown';
 
 
@@ -7,8 +7,8 @@ import {Dropdown} from 'react-native-material-dropdown';
 
 export default class myCart extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             datasource:[],
             access_token:'',
@@ -24,33 +24,43 @@ export default class myCart extends Component{
      }
     });
 
-    componentDidMount(){
+
+     componentDidMount(){
+         this.fetchApiData()
+    }
+
+           async fetchApiData(){
+            try {
+                
+                const token = await AsyncStorage.getItem('@NeoStore_at')
+            console.log(token)
+                console.log('Acesss token is:'+token)
+                // this.setState({access_token:token})
+            
 
         const fetchData={
             method:'GET',
             headers:{
-                'access_token':'5d43da46422a0',
-                'Content-Type':'application/x-www-form-urlencoded',
-
-            },
+                access_token:token,
+                 'Content-Type':'application/json'
+            }
         };
-        fetch('http://staging.php-dev.in:8844/trainingapp/api/cart',fetchData)
-        .then((response)=>response.json())
-        .then((responseJson)=>{
-           this.setState({
-               datasource:responseJson.data,
-               total:responseJson.total
-
+        return fetch('http://staging.php-dev.in:8844/trainingapp/api/cart',fetchData)
+        .then(response =>response.json())
+        .then(responseJson=>{
+            this.setState({
+                datasource:responseJson.data,
+                total:responseJson.total
             })
-        }
+        })
+        .catch(error=>{
+            console.error(error)
 
-             
-        )
-
-        .catch((err)=>
-                console.log(err)
-        )
-
+        })
+    }catch(error){
+        console.log(error.message)
+    }
+    
     }
     
     render(){
@@ -69,7 +79,7 @@ export default class myCart extends Component{
                    <FlatList
                    data={this.state.datasource}
                    renderItem={({item})=>(
-            <View style={{flexDirection:'row',marginVertical:30}}>
+            <View style={{flexDirection:'row',marginTop: 10,marginLeft:10}}>
                 <Image source={{uri:item.product.product_images}} style={{width:80,height:80}}/>
                     <View style={{flexDirection:'column',marginLeft:20}}>
                              <Text style={{fontSize:20}}>{item.product.name}</Text>
@@ -84,45 +94,38 @@ export default class myCart extends Component{
                                         <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
                                      </View>
                                  </View>
-                               
-                                
-                       </View>
+                                 <View style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:5}}/>
+              </View>
+            
                        
                         
                                
             </View>
                    )}
                    keyExtractor={(item, index) => index.toString()}/>
+                        <View style={{flex:0,bottom:0,position:'absolute',marginBottom:40,paddingLeft:30}}>
+                       <View style={{flexDirection:'row'}}>
+                        <Text style={{fontSize:25,marginLeft:80}}>Total</Text>
+                        <Text style={{fontSize:25,paddingLeft:50}} >₹{this.state.total}</Text>
+                        </View>  
+                        <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'red',height:51,width:300,marginLeft:30,borderRadius:5}}>
+                        <TouchableOpacity onPress={()=>this.props.navigation.navigate('order')}>
+                        <Text style={{fontSize:30,color:'white'}}>Order Now</Text>
+                         </TouchableOpacity>  
+                         </View>
 
-                        <View style={{flex:'10',flexDirection:'row'}} >
-                        <Text style={{fontSize:25}}>Total</Text>
+                         </View>
 
-                        <Text style={{fontSize:25,paddingLeft:20}} >₹{this.state.total}</Text>
-                        </View>
-                           
-                      
-
-                       
-                            <TouchableOpacity onPress={()=>this.props.navigation.navigate('order')} style={{}}>
-                                <Text style={{alignSelf:'center',fontSize:30,color:'white'}}>Order Now</Text>
-                                </TouchableOpacity>    
-                               
-                   
-                             
-               </View>
+                </View>
        
 
         );
     }
 }
 
+
 const MycartStyles = StyleSheet.create({
     container:{
         flex:1,
-        marginTop:10,
-        justifyContent:'center',
-        alignItems:'center'
-     
-    
     }
 });

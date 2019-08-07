@@ -15,10 +15,22 @@ import HeaderButton from './Component/HeaderButton';
 import ResetPassword from './src/ResetPassword';
 import orderPlace from './src/orderPlace';
 import OrderDetail from './src/OrderDetail';
+import StartingNeoPage from './src/StartingNeoPage';
 
 
 
 const AppStack = createStackNavigator({
+
+  // WelcomeScreen:{
+  //   screen:StartingNeoPage,
+  //   navigationOptions:{
+  //     header:null,
+  //     headerBackTitle:null
+      
+  // },
+
+  // },
+
   firstPage:{
     screen:firstScreen,
     navigationOptions:{
@@ -49,6 +61,8 @@ headerTintColor:'white',
 
 
 const AppStack2 = createStackNavigator({
+
+ 
 
   thirdpage:{
     screen:ThirdScreen,
@@ -92,7 +106,8 @@ cart:{
     headerStyle:{
       backgroundColor:'red',
     },
-    headerTintColor:'white'
+    headerTintColor:'white',
+    headerBackTitle:null
   }
 },
 
@@ -129,7 +144,16 @@ ResetPassword:{
 },
 },
 order:{
-  screen:orderPlace
+  screen:orderPlace,
+  navigationOptions:{ 
+        title:'My Order',
+      
+      headerStyle:{
+          backgroundColor:'#fe3f3f'
+      },
+      headerTintColor:'white',
+      
+  }
 },
 orderdetail:{
   screen:OrderDetail,

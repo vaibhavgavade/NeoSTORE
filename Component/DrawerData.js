@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {View,Text,StyleSheet,Image} from 'react-native';
+import {View,Text,StyleSheet,Image,AsyncStorage} from 'react-native';
 import images from '../Constant/Images';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -7,10 +7,17 @@ import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class DrawerData extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = 
         {
+                emailId:'',
+                fName:'',
+                lName:'',
+
+
+
+
             drawerInformation:[
                 
                 {image:images.cartIcon, title:'My Carts',action:'cart'},
@@ -23,9 +30,34 @@ export default class DrawerData extends Component{
                 {image:images.logOutimg,title:'Logout',action:'firstPage'}
             ]
         };
+
+          
+        this.storeData()
+}
+
+    async storeData(){
+        try{
+                const email = await AsyncStorage.getItem('@NeoStore_email')
+                const firstname= await AsyncStorage.getItem('@NeoStore_fname')
+                const lastName=await AsyncStorage.getItem('@NeoStore_lname')
+                console.log('Drawer email id is:'+email)
+                this.setState({
+                            emailId:email,
+                            fName:firstname,
+                            lName:lastName
+
+                })
+
+        }
+        catch(error){
+            console.log(error.message)
+        }
     }
+
     render(){
-        return(
+
+        
+    return(
 
            
 
@@ -33,7 +65,11 @@ export default class DrawerData extends Component{
 
             <View style={{justifyContent:'center',alignItems:'center'}}>    
                 <Image style={{height:100,width:100,borderRadius:50}} source={images.profile}/>
-                <Text style={{color:'white',fontSize:15,fontWeight:'bold',paddingTop:20 ,paddingLeft:30,paddingRight:30}}>Vaibhav0413@gmail.com</Text>
+                <View style={{flexDirection:'row'}}>
+                <Text style={{color:'white',fontSize:20}}>{this.state.fName}</Text>
+                <Text style={{color:'white',fontSize:20,paddingLeft:10}}>{this.state.lName}</Text>
+                </View>
+                <Text style={{color:'white',fontSize:15,fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
             </View>
             <FlatList
 

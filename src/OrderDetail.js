@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,FlatList,Image} from 'react-native';
+import { View, Text,FlatList,Image,AsyncStorage} from 'react-native';
 import { Item } from 'native-base';
 
 
@@ -11,7 +11,8 @@ export default class OrderDetail extends Component {
     super(props);
     this.state = {
       datasource:[],
-      total:''
+      total:'',
+      access_token:''
      
     }
   }
@@ -23,13 +24,18 @@ export default class OrderDetail extends Component {
       fontSize:30,
      
     }
-  
-    
-   
-
-    });
+   });
 
   componentDidMount(){
+    this.orderDFetchData()
+  }
+
+ async orderDFetchData(){
+
+    try{
+      const token = await AsyncStorage.getItem('@NeoStore_at')
+      console.log('Order detail token is:'+token)
+    
     const prouctData=this.props.navigation.getParam('orderId')
    
    console.log(prouctData)
@@ -37,7 +43,7 @@ export default class OrderDetail extends Component {
     const fetchdata={
       method:'GET',
       headers:{
-          'access_token':'5d43da46422a0',
+            access_token:token,
           'Content_Type':'application/x-www-form-urlencoded'
 
       }
@@ -58,6 +64,11 @@ export default class OrderDetail extends Component {
       .catch((err)=>{
         console.error(err)
       })
+
+    }catch(error){
+      console.log(error.message)
+    }
+
     }
   
 
