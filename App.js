@@ -29,6 +29,7 @@ const AppStack = createStackNavigator({
       
   // },
 
+  
   // },
 
   firstPage:{
