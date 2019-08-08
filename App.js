@@ -21,13 +21,13 @@ import StartingNeoPage from './src/StartingNeoPage';
 
 const AppStack = createStackNavigator({
 
-  WelcomeScreen:{
-    screen:StartingNeoPage,
-    navigationOptions:{
-      header:null,
-      headerBackTitle:null
-      },
-},
+//   WelcomeScreen:{
+//     screen:StartingNeoPage,
+//     navigationOptions:{
+//       header:null,
+//       headerBackTitle:null
+//       },
+// },
 
   firstPage:{
     screen:firstScreen,
