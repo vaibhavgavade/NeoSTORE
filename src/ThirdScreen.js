@@ -56,7 +56,7 @@ headerTitleStyle:{
       snapToAlignment = 'center'
       showsHorizontalScrollIndicator={true}>
         {this.state.sliderData.map(item=>(
-          <Image  style = {{width:390,height:'100%'}}source={item.key}/>
+          <Image  style = {{width:390,height:'100%'}}source={item.key} key={item.key}/>
 
         ))}
         </ScrollView>

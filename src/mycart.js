@@ -5,6 +5,7 @@ import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity,AsyncStorage,Picker
 
 
 
+
 export default class myCart extends Component{
 
     constructor(props){
@@ -13,10 +14,11 @@ export default class myCart extends Component{
             datasource:[],
             access_token:'',
             total:'',
-            language:'java'
+            language:''
         }
     };
 
+   
 
   static navigationOptions =({navigation})=>({
    
@@ -124,8 +126,13 @@ export default class myCart extends Component{
 
                          </View>
 
+                    
+
+
                 </View>
        
+                     
+                      
 
         );
     }

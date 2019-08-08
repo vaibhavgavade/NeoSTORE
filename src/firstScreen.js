@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {View,Text,TextInput,StyleSheet,Image,TouchableOpacity,Button,KeyboardAvoidingView,AsyncStorage} from 'react-native';
+import {View,Text,TextInput,StyleSheet,Image,TouchableOpacity,Button,KeyboardAvoidingView,AsyncStorage,SafeAreaView} from 'react-native';
 import images from '../Constant/Images';
 import Input from '../Component/Input'
 import Toptext from '../Component/Toptext'
 import { placeholder } from '@babel/types';
 import RoundButton from '../Component/RoundButton';
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 // import fontData from '../Constant/MyFonts';
 // import inputData from '../Component/input';
@@ -53,9 +53,7 @@ export default class firstScreen extends Component{
                this.mySucessFullData()
            
            })
-
-       
-      };
+};
 
       mySucessFullData(){
           const {navigate}=this.props.navigation
@@ -66,9 +64,9 @@ export default class firstScreen extends Component{
             "" + this.state.datasource.data.email,
             "" + this.state.datasource.data.access_token
         )
-        // setTimeout(function() {
-        //     navigate('thirdpage');
-        //   }, 2000);
+        setTimeout(function() {
+            navigate('thirdpage');
+          }, 2000);
         }
         else if (this.state.datasource.status == 401) {
             alert("" + this.state.datasource.user_msg);
@@ -113,7 +111,7 @@ export default class firstScreen extends Component{
         <Input image={images.password} placeholder='Password'onChangeText={(password)=>this.setState({password})}/>
         <RoundButton onPress={()=>this.LoginMethod()} >Login</RoundButton>
         </View>
-        <TouchableOpacity style={loginStyle.passwordLbl}>
+        <TouchableOpacity style={loginStyle.passwordLbl} onPress={()=>navigate('lforot')}>
         <Text style={loginStyle.textPassword}>Forot Password</Text>
         </TouchableOpacity>
       

@@ -16,18 +16,22 @@ import ResetPassword from './src/ResetPassword';
 import orderPlace from './src/orderPlace';
 import OrderDetail from './src/OrderDetail';
 import StartingNeoPage from './src/StartingNeoPage';
+import LoginFPassword from './src/LoginFPassword';
+
 
 
 
 const AppStack = createStackNavigator({
 
-//   WelcomeScreen:{
-//     screen:StartingNeoPage,
-//     navigationOptions:{
-//       header:null,
-//       headerBackTitle:null
-//       },
-// },
+
+
+  WelcomeScreen:{
+    screen:StartingNeoPage,
+    navigationOptions:{
+      header:null,
+      headerBackTitle:null
+      },
+},
 
   firstPage:{
     screen:firstScreen,
@@ -36,6 +40,17 @@ const AppStack = createStackNavigator({
         headerBackTitle:null
         
     },
+  },
+
+  lforot:{
+    screen:LoginFPassword,
+    navigationOptions:{
+      title:'NeoSTORE',
+        headerStyle:{
+        backgroundColor:'#fe3f3f',
+        },
+        headerTintColor:'white',
+    }
   },
 
   secondPage: {
@@ -164,6 +179,7 @@ orderdetail:{
   }
   
 },
+
 
 },
 )
