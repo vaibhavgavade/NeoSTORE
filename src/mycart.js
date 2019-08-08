@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity,AsyncStorage} from 'react-native';
-import {Dropdown} from 'react-native-material-dropdown';
+import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity,AsyncStorage,Picker} from 'react-native';
+
 
 
 
@@ -12,7 +12,8 @@ export default class myCart extends Component{
         this.state={
             datasource:[],
             access_token:'',
-            total:''
+            total:'',
+            language:'java'
         }
     };
 
@@ -65,12 +66,7 @@ export default class myCart extends Component{
     
     render(){
 
-        const data = [{label:'1',vale:'1'},
-        {label:'2',value:'2'},
-        {label:'3',value:'3'},
-        {label:'4',value:'4'},
-        {label:'5',value:'5'}
-        ]
+       
      console.log('API cart data is:',this.state.datasource)
         return(
           
@@ -86,10 +82,7 @@ export default class myCart extends Component{
                                 <View style={{flexDirection:'row',flex:1}}>
                                     <Text style={{fontStyle:'italic',fontSize:18}}>{item.product.product_category}</Text>
                                     <Text>{item.quantity}</Text>
-                                   <Dropdown style={{flexDirection:'row'}}
-                                   label='QTY'
-                                   data={data}
-                                   />
+
                                      <View style={{paddingHorizontal:120}}>
                                         <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
                                      </View>
@@ -97,7 +90,22 @@ export default class myCart extends Component{
                                  <View style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:5}}/>
               </View>
             
-                       
+                        <View>
+
+                            <Picker style={{width:100,color:'black'}}
+                                    selectedValue={this.state.language}
+                                    onValueChange={(lang)=>this.setState({language:lang})}>
+
+                                     <Picker.Item label="Java" value="java" />
+                                     <Picker.Item label="JavaScript" value="js" />
+
+                                    </Picker>
+
+
+                            
+                            
+                        </View>
+                      
                         
                                
             </View>

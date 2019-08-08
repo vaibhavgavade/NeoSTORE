@@ -90,7 +90,8 @@ const addresstyles=StyleSheet.create({
     marginHorizontal:15,
     alignContent:'center',
     fontSize:20,
-    paddingLeft:10
+    paddingLeft:10,
+    borderRadius:5
 
   },
   buttonStyles:{

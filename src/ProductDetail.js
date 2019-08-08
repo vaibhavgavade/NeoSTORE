@@ -295,7 +295,8 @@ const ProductStyle = StyleSheet.create({
           marginLeft:20,
          marginRight:20,
          borderWidth:2,
-         borderColor:'#2f4f4f'
+         borderColor:'#2f4f4f',
+         borderRadius:10
 
     },
     modalatext:{
