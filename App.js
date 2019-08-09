@@ -17,6 +17,11 @@ import orderPlace from './src/orderPlace';
 import OrderDetail from './src/OrderDetail';
 import StartingNeoPage from './src/StartingNeoPage';
 import LoginFPassword from './src/LoginFPassword';
+import editprofile from './src/editProfile';
+
+
+
+import('./ReactotronConfig').then(() => console.log('Reactotron Configured'))
 
 
 
@@ -66,6 +71,7 @@ headerTintColor:'white',
     }
   },
 
+  
 
 },
 );
@@ -127,6 +133,7 @@ cart:{
 Account:{
   screen:MyAccount,
   navigationOptions:{
+    headerBackTitle:null,
     title:'My Account',
     headerStyle:{
         backgroundColor:'#fe3f3f'
@@ -180,8 +187,19 @@ orderdetail:{
   
 },
 
-
+editprofile:{
+  screen:editprofile,
+  navigationOptions:{ 
+    title:'My Profile',
+  
+  headerStyle:{
+      backgroundColor:'#fe3f3f'
+  },
+  headerTintColor:'white',
+}
 },
+
+}
 )
 
 

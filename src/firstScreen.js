@@ -100,9 +100,7 @@ export default class firstScreen extends Component{
       
       const{navigate}=this.props.navigation
      
-      
-
-    return(
+return(
           
            <View style={loginStyle.container}>   
         <View>
