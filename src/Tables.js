@@ -12,12 +12,17 @@ export default class Tables extends Component{
         }
     }
 
-    static navigationOptions =({navigation})=>({
    
-      headerTitleStyle:{
-         fontSize:30,
-      }
-     });
+  static navigationOptions =({navigation})=>({
+   
+ 
+  title:navigation.getParam('navTitle'),
+  headerTitleStyle:{
+    fontSize:30,
+   
+   
+  }
+ });
      
     componentDidMount(){
 
@@ -60,7 +65,7 @@ export default class Tables extends Component{
               <FlatList 
                 data={this.state.allData}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={()=>this.props.navigation.navigate('pDetail',{productId:item.id})}>
+                  <TouchableOpacity onPress={()=>this.props.navigation.navigate('pDetail',{productId:item.id,ProductTitle:item.name})}>
                 <View style={{flex:1,flexDirection:'row',margin:25}}>
               <Image  source={{uri:item.product_images}} style={{height:'100%', width:'30%'}}/>
              <View style={{flex:5,marginHorizontal:30}}>

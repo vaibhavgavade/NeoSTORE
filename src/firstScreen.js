@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {View,Text,TextInput,StyleSheet,Image,TouchableOpacity,Button,KeyboardAvoidingView,AsyncStorage,SafeAreaView} from 'react-native';
 import images from '../Constant/Images';
-import Input from '../Component/Input'
-import Toptext from '../Component/Toptext'
-import { placeholder } from '@babel/types';
+import Input from '../Component/Input';
+import Toptext from '../Component/Toptext';
 import RoundButton from '../Component/RoundButton';
+
 
 
 // import fontData from '../Constant/MyFonts';
@@ -143,7 +143,9 @@ const loginStyle = StyleSheet.create({
     },
     textPassword:{
         fontSize:25,
-        color:'white'
+        color:'white',
+     
+        
     },
     Account:{
         flexDirection:'row',

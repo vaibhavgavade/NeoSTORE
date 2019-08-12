@@ -17,7 +17,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "@react-native-community/cameraroll": "^1.1.1",
     "@react-navigation/web": "^1.0.0-alpha.9",
-    "expo": "^33.0.0",
+    "expo": "^33.0.7",
     "expo-asset": "^5.0.0",
     "expo-constants": "^5.0.0",
     "expo-font": "^5.0.0",

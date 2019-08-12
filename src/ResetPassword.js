@@ -38,8 +38,9 @@ export default class ResetPassword extends Component {
     fetch('http://staging.php-dev.in:8844/trainingapp/api/users/change',fetchData)
     .then((response)=>response.json())
     .then((responseJson)=>{
-              this.setState({username:responseJson})
+              this.setState({ datasource:responseJson})
       console.log('reset password data:',responseJson)
+      this.sucessFull()
     }).catch((err)=>
           console.log(err)
     )
@@ -49,6 +50,20 @@ export default class ResetPassword extends Component {
   }
 }
 
+sucessFull(){
+  if(this.state.datasource.status==200){
+    alert(""+this.state.datasource.user_msg)
+  } else if (this.state.datasource.status == 401) {
+    alert("" + this.state.datasource.user_msg);
+  } else if (this.state.datasource.status == 400) {
+    alert("" + this.state.datasource.user_msg);
+  } else if(this.state.datasource.status==500){
+    alert(""+this.state.datasource.message)
+  }
+  else {
+    alert("Something Went Wrong");
+  }
+}
 
 
 

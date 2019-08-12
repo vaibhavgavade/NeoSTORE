@@ -49,12 +49,28 @@ async orderPlacing(){
     .then((responseJson)=>{
               this.setState({username:responseJson})
       console.log('my order olacing data is:',responseJson)
+      this.sucessFull()
     }).catch((err)=>
           console.log(err)
     )
   }
   catch(error){
     console.log(error.message)
+  }
+}
+
+sucessFull(){
+  if(this.state.datasource.status==200){
+    alert(""+this.state.datasource.user_msg)
+  } else if (this.state.datasource.status == 401) {
+    alert("" + this.state.datasource.user_msg);
+  } else if (this.state.datasource.status == 400) {
+    alert("" + this.state.datasource.user_msg);
+  } else if(this.state.datasource.status==500){
+    alert(""+this.state.datasource.message)
+  }
+  else {
+    alert("Something Went Wrong");
   }
 }
 

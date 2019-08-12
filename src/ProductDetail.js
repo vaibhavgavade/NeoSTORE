@@ -25,6 +25,20 @@ export default class ProductDetail extends Component {
 };
 
   }
+
+  static navigationOptions =({navigation})=>({
+      backgroundColor:'red',
+   
+    title:navigation.getParam('ProductTitle'),
+    headerTitleStyle:{
+      fontSize:15,
+     
+     
+    }
+   });
+
+
+
   updateRating(rate){
     this.setState({defaultRating:rate})
 }

@@ -99,7 +99,8 @@ const AppStack2 = createStackNavigator({
 Tables:{
   screen:Tables,
   navigationOptions:{
-    title:'Table',
+    headerBackTitle:null,
+  
     headerStyle:{
       backgroundColor:'red'
     },
@@ -150,7 +151,15 @@ LogOut:{
 },
 
 pDetail:{
-  screen:productDetail
+  screen:productDetail,
+  navigationOptions:{
+    headerBackTitle:null,
+       
+   headerStyle:{
+     backgroundColor:'#fe3f3f'
+   },
+   headerTintColor:'white'
+ },
 },
 ResetPassword:{
   screen:ResetPassword,
@@ -213,7 +222,8 @@ const Drawer = createDrawerNavigator({
     contentComponent:DrawerData,
     drawerBackgroundColor:'#008080',
     drawerType:'slide',
-    drawerWidth:250
+    drawerWidth:300,
+
   
   },
 

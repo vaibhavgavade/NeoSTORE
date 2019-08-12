@@ -17,14 +17,7 @@ export default class OrderDetail extends Component {
     }
   }
 
-  static navigationOptions =({navigation})=>({
-   
-    title:'Order ID:'+ navigation.getParam('orderId'),
-    headerTitleStyle:{
-      fontSize:30,
-     
-    }
-   });
+
 
   componentDidMount(){
     this.orderDFetchData()

@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
-import {View,Text,ScrollView,Image,TouchableOpacity} from 'react-native';
+import {View,Text,ScrollView,Image,TouchableOpacity,Dimensions} from 'react-native';
 import images from '../Constant/Images'
 import { FlatList } from 'react-native-gesture-handler';
 
 
 export default class ThirdScreen extends Component{
+  deviceDimestion=()=>{
+    const aheight = Dimensions.get('window').height;
+    const bwidth  =Dimensions.get('window').width;
+
+  }
+
+ 
 
 static navigationOptions = ({navigation})=>({
 headerTitleStyle:{
@@ -64,7 +71,7 @@ headerTitleStyle:{
           
           <View style={{flex:0.5,justifyContent:'center',alignItems:'center',marginTop:15}}>
         <FlatList data={this.state.gridData}  renderItem={({item})=>(
-    <TouchableOpacity style={{padding:9,}} key={item.key} onPress={()=>this.props.navigation.navigate('Tables',{id:item.values})}>
+    <TouchableOpacity style={{padding:9,}} key={item.key} onPress={()=>this.props.navigation.navigate('Tables',{id:item.values,navTitle:item.title})}>
         
       <Image style={{width:165,height:165}} source={item.key}/>
     </TouchableOpacity> 
