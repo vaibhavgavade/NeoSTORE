@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text ,StyleSheet,Image,ScrollView,TouchableOpacity,Modal,TextInput,KeyboardAvoidingView} from 'react-native';
+import { View, Text ,StyleSheet,Image,ScrollView,TouchableOpacity,Modal,TextInput,KeyboardAvoidingView,TouchableWithoutFeedback} from 'react-native';
 import images from '../Constant/Images';
+import MyRating from '../Component/MyRating'
 //import share from 'react-native-share';
 
 
@@ -25,6 +26,17 @@ export default class ProductDetail extends Component {
 };
 
   }
+
+  _hideModal(Bool){
+      this.setState({
+          modalVisible:Bool
+      })
+  }
+  _rateModal(Bool){
+    this.setState({
+        rateModel:Bool
+    })
+}
 
   static navigationOptions =({navigation})=>({
       backgroundColor:'red',
@@ -162,7 +174,11 @@ addToCart(){
          <View>
              <Text style={{fontSize:25, }}>{this.state.productDetailData.name}</Text>
              <Text style={{fontSize:22}}>{this.productCategory()}</Text>
+             <View style={{flexDirection:'row'}}>
              <Text style={{fontSize:20}}>{this.state.productDetailData.producer}</Text>
+             <MyRating ratings = {this.state.productDetailData.rating}/>
+             </View>
+
               
              </View>
 
@@ -218,9 +234,9 @@ addToCart(){
          
              
            
-          
-              <Modal visible={this.state.modalVisible} animationType='fade' transparent={true}>
-                 
+        
+              <Modal visible={this.state.modalVisible} animationType='slide' transparent={true} >
+              <TouchableWithoutFeedback onPressOut={()=>this._hideModal(false)}>
                   
                   <View style={{backgroundColor:'#a9a9a9',flex:1}}>
                  
@@ -247,14 +263,17 @@ addToCart(){
                   </View>
                   
                   </View>
-                  
+                  </TouchableWithoutFeedback>
               </Modal>
-           
+
+             
+                    
+        
 
 
 
-
-              <Modal visible={this.state.rateModel} animationType='fade' transparent={true}>
+              <Modal visible={this.state.rateModel} animationType='slide' transparent={true}>
+              <TouchableWithoutFeedback onPressOut={()=>this._rateModal(false)}>
                   <View style={{backgroundColor:'#a9a9a9',flex:1}}>
                   <View style={ProductStyle.modal}>
                       <Text style={ProductStyle.modalatext} >{this.state.productDetailData.name}</Text>
@@ -274,6 +293,7 @@ addToCart(){
                      
                   </View>
                   </View>
+                  </TouchableWithoutFeedback>
               </Modal>
            
 

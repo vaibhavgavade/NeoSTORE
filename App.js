@@ -220,9 +220,9 @@ const Drawer = createDrawerNavigator({
 
   {
     contentComponent:DrawerData,
-    drawerBackgroundColor:'#008080',
+    drawerBackgroundColor:'white',
     drawerType:'slide',
-    drawerWidth:300,
+    drawerWidth:250,
 
   
   },

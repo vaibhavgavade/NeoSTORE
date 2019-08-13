@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View,Text,ScrollView,Image,TouchableOpacity,Dimensions} from 'react-native';
+import {View,Text,ScrollView,Image,TouchableOpacity,Dimensions,StyleSheet} from 'react-native';
 import images from '../Constant/Images'
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -51,6 +51,7 @@ headerTitleStyle:{
 
    
   render(){
+    
 
     
     return(
@@ -63,10 +64,21 @@ headerTitleStyle:{
       snapToAlignment = 'center'
       showsHorizontalScrollIndicator={true}>
         {this.state.sliderData.map(item=>(
-          <Image  style = {{width:390,height:'100%'}}source={item.key} key={item.key}/>
-
-        ))}
+          
+              <Image  style = {{width:390,height:'100%'}}source={item.key} key={item.key}/>
+              
+          ))}
+           
         </ScrollView>
+        <View style={pagingStyles.circleDiv}>
+          {this.state.sliderData.map(i=>{
+
+              <View key={i} style={pagingStyles.whiteCircle}/>
+
+          })}
+        </View>
+        
+      
         </View>
           
           <View style={{flex:0.5,justifyContent:'center',alignItems:'center',marginTop:15}}>
@@ -89,3 +101,23 @@ headerTitleStyle:{
     );
   }
 } 
+
+const pagingStyles=StyleSheet.create({
+    circleDiv: {
+    position: "absolute",
+    bottom: 15,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: 10
+  },
+  whiteCircle: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    margin: 5,
+    backgroundColor: "#fff"
+  }
+})

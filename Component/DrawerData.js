@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {View,Text,StyleSheet,Image,AsyncStorage} from 'react-native';
 import images from '../Constant/Images';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import Ionicons from '@expo/vector-icons'
 
 
 
@@ -20,14 +21,14 @@ export default class DrawerData extends Component{
 
             drawerInformation:[
                 
-                {image:images.cartIcon, title:'My Carts',action:'cart'},
-                {image:images.tableIcon,title:'Tables',action:'Tables',id:'1'},
-                {image:images.chairIcon,title:'Chairs',action:'Tables',id:'2'},
-                {image:images.sofaIcon,title:'Sofas',action:'Tables',id:'3'},
-                {image:images.cupboardIcon,title:'Cupbaords',action:'Tables',id:'4'},
-                {image:images.username,title:'My Account',action:'Account'},
-                {image:images.myOrdersImg,title:'My Orders',action:'orderList'},
-                {image:images.logOutimg,title:'Logout',action:'firstPage'}
+                {image:images.purchase, title:'My Carts',action:'cart'},
+                {image:images.tables,title:'Tables',action:'Tables',id:'1'},
+                {image:images.chair,title:'Chairs',action:'Tables',id:'2'},
+                {image:images.sofa,title:'Sofas',action:'Tables',id:'3'},
+                {image:images.cupboard,title:'Cupbaords',action:'Tables',id:'4'},
+                {image:images.account,title:'My Account',action:'Account'},
+                {image:images.order,title:'My Orders',action:'orderList'},
+                {image:images.logout,title:'Logout',action:'firstPage'}
             ]
         };
 
@@ -66,10 +67,10 @@ export default class DrawerData extends Component{
             <View style={{justifyContent:'center',alignItems:'center'}}>    
                 <Image style={{height:100,width:100,borderRadius:50}} source={images.profile}/>
                 <View style={{flexDirection:'row'}}>
-                <Text style={{color:'white',fontSize:20}}>{this.state.fName}</Text>
-                <Text style={{color:'white',fontSize:20,paddingLeft:10}}>{this.state.lName}</Text>
+                <Text style={{color:'black',fontSize:20}}>{this.state.fName}</Text>
+                <Text style={{color:'black',fontSize:20,paddingLeft:10}}>{this.state.lName}</Text>
                 </View>
-                <Text style={{color:'white',fontSize:15,fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
+                <Text style={{color:'black',fontSize:15,fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
             </View>
             <FlatList
 

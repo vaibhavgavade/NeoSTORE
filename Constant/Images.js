@@ -28,7 +28,15 @@ const images = {
     profile:require('../Images/profile.jpeg'),
     withoutChknImg:require('../Images/chkn.png'),
     withchkyImg:require('../Images/chky.png'),
-    dateBirth:require('../Images/dob_icon.png')
+    dateBirth:require('../Images/dob_icon.png'),
+    purchase:require('../Images/order.png'),
+    tables:require('../Images/tables.png'),
+    chair:require('../Images/chair.png'),
+    sofa:require('../Images/sofa.png'),
+    cupboard:require('../Images/cupboard.png'),
+    account:require('../Images/account.png'),
+    order:require('../Images/myorders.png'),
+    logout:require('../Images/logout.png')
 
 
 }
