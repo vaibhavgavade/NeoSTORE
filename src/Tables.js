@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity} from 'react-native';
+import MyRating from '../Component/MyRating'
 
 export default class Tables extends Component{
   
@@ -65,18 +66,28 @@ export default class Tables extends Component{
               <FlatList 
                 data={this.state.allData}
                 renderItem={({ item }) => (
+                
+                
                   <TouchableOpacity onPress={()=>this.props.navigation.navigate('pDetail',{productId:item.id,ProductTitle:item.name})}>
                 <View style={{flex:1,flexDirection:'row',margin:25}}>
               <Image  source={{uri:item.product_images}} style={{height:'100%', width:'30%'}}/>
              <View style={{flex:5,marginHorizontal:30}}>
+
               <Text style={{fontSize:15}}>{item.name}</Text>
+              
              <Text style={{fontSize:15}}>{item.producer}</Text>
+                  <View style={{flexDirection:'row'}}>
               <Text style={{fontSize:25,color:'red',paddingTop:10}}>{item.cost}</Text>
+              <MyRating ratings={item.rating} />
+              </View>
+            
             </View>
 
               </View>
               </TouchableOpacity>
-               )}
+
+              
+        )}
                 keyExtractor={(item, index) => index.toString()}
               />
             </View>
