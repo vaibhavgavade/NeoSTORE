@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import {View,Text,ScrollView,Image,TouchableOpacity,Dimensions,StyleSheet} from 'react-native';
-import images from '../Constant/Images'
-import { FlatList } from 'react-native-gesture-handler';
+import {View,Text,ScrollView,Image,TouchableOpacity,Dimensions,StyleSheet,FlatList} from 'react-native';
+import images from '../Constant/Images';
+import {ImageCorousel} from '../Component/ImageCorousel';
+
+
+
+
 
 
 export default class ThirdScreen extends Component{
-  deviceDimestion=()=>{
-    const aheight = Dimensions.get('window').height;
-    const bwidth  =Dimensions.get('window').width;
-
-  }
-
- 
 
 static navigationOptions = ({navigation})=>({
 headerTitleStyle:{
@@ -31,10 +28,10 @@ headerTitleStyle:{
     super();
     this.state = {
       sliderData:[
-       {key:images.sliderOne},
-       {key:images.sliderTwo},
-       {key:images.sliderThree},
-       {key:images.sliderFour}
+       {data:images.sliderOne},
+       {data:images.sliderTwo},
+       {data:images.sliderThree},
+       {data:images.sliderFour}
 
       ],
 
@@ -49,6 +46,9 @@ headerTitleStyle:{
     };
   }
 
+
+
+ 
    
   render(){
     
@@ -58,7 +58,7 @@ headerTitleStyle:{
       <View style={{flex:1,flexDirection:'column'}}>
 
         <View style={{flex:0.4}}>
-        <ScrollView 
+        {/* <ScrollView 
        horizontal
        pagingEnabled
       snapToAlignment = 'center'
@@ -69,17 +69,11 @@ headerTitleStyle:{
               
           ))}
            
-        </ScrollView>
-        <View style={pagingStyles.circleDiv}>
-          {this.state.sliderData.map(i=>{
+        </ScrollView> */}
+        <ImageCorousel image={this.state.sliderData}/>
 
-              <View key={i} style={pagingStyles.whiteCircle}/>
-
-          })}
-        </View>
         
-      
-        </View>
+     </View>
           
           <View style={{flex:0.5,justifyContent:'center',alignItems:'center',marginTop:15}}>
         <FlatList data={this.state.gridData}  renderItem={({item})=>(
