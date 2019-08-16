@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity} from 'react-native';
-import MyRating from '../Component/MyRating'
+import MyRating from '../Component/MyRating';
+
 
 export default class Tables extends Component{
   
@@ -12,6 +13,7 @@ export default class Tables extends Component{
           
         }
     }
+
 
    
   static navigationOptions =({navigation})=>({
@@ -26,7 +28,7 @@ export default class Tables extends Component{
  });
      
     componentDidMount(){
-
+  
      
       const itemValues=this.props.navigation.getParam('id')
       console.log(itemValues)
@@ -55,6 +57,8 @@ export default class Tables extends Component{
         })
     }
 
+
+   
 
     render(){
   

@@ -36,7 +36,8 @@ const images = {
     cupboard:require('../Images/cupboard.png'),
     account:require('../Images/account.png'),
     order:require('../Images/myorders.png'),
-    logout:require('../Images/logout.png')
+    logout:require('../Images/logout.png'),
+    deleteBtn:require('../Images/delete.png')
 
 
 }

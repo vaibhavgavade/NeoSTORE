@@ -46,15 +46,9 @@ headerTitleStyle:{
     };
   }
 
-
-
- 
-   
-  render(){
+render(){
     
-
-    
-    return(
+return(
       <View style={{flex:1,flexDirection:'column'}}>
 
         <View style={{flex:0.4}}>

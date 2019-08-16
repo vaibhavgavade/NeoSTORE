@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity,AsyncStorage,Picker} from 'react-native';
+import Swipeout from 'react-native-swipeout';
+import images from  '../Constant/Images';
+import InputSpinner from 'react-native-input-spinner'
 
 
 
@@ -14,9 +17,22 @@ export default class myCart extends Component{
             datasource:[],
             access_token:'',
             total:'',
-            language:''
+            quantity:'',
+            activeRowKey:null,
+            myid:''
+                        
+           
         }
     };
+
+    onopenSwipe(id){
+        this.setState({ myid:id})
+
+    }
+    oncloseSwipe(id){
+        this.setState({myid:null})
+
+    }
 
    
 
@@ -37,7 +53,7 @@ export default class myCart extends Component{
                 
                 const token = await AsyncStorage.getItem('@NeoStore_at')
             console.log(token)
-                console.log('Acesss token is:'+token)
+                // console.log('Acesss token is:'+token)
                 // this.setState({access_token:token})
             
 
@@ -54,6 +70,7 @@ export default class myCart extends Component{
             this.setState({
                 datasource:responseJson.data,
                 total:responseJson.total
+               
             })
         })
         .catch(error=>{
@@ -65,54 +82,146 @@ export default class myCart extends Component{
     }
     
     }
+
+
+
+    deleteCart(id){
+        
+        
+     const product_id = id;
+        const fetchData={
+            method:'POST',
+            headers:{
+                access_token:'5cebf6e5139b6', 
+                'Content-Type':'application/x-www-form-urlencoded'
+            },
+            body:`product_id=${product_id}`
+        };
+        return fetch('http://staging.php-dev.in:8844/trainingapp/api/addToCart',fetchData)
+        .then((response)=>response.json())
+        .then((responseJson)=>{
+            console.log('Done delete Api is called')
+            console.log(responseJson)
+            this.fetchApiData()
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+
+    }
+
+   async updatingCart(value, id){
+       const quantity=value;
+       const product_id=id;
+       console.log(quantity+" vaibhav gavade "+product_id)
+       console.log("Done")
+       try{
+           
+    
+         const token = await AsyncStorage.getItem('@NeoStore_at')
+             console.log('updating Cart token is:'+token)
+       
+       
+        const fetchData={
+            method:'POST',
+            headers:{
+                access_token:token,
+                'Content-Type':'application/x-www-form-urlencoded'
+            },
+            body:`product_id=${product_id}&quantity=${quantity}`
+        };
+        return fetch('http://staging.php-dev.in:8844/trainingapp/api/editCart',fetchData)
+        .then((response)=>response.json())
+        .then((responseJson)=>{
+            console.log("call Api")
+            console.log(responseJson)
+            this.fetchApiData()
+          
+    
+        })
+        .catch((err)=>
+            console.log(err)
+        )
+    }
+    catch(err){
+        console.log(err)
+    }
+
+    }
     
     render(){
 
        
-     console.log('API cart data is:',this.state.datasource)
+        const swipeOutbtn=[{
+            component:(
+                <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                        <Image source={images.deleteBtn}/>  
+                </View>
+            )
+        }
+    ]
+
+        
+       
+    // console.log('API cart data is:',this.state.datasource)
         return(
           
             
                <View style={MycartStyles.container}>
+
+                   
+                 
                    <FlatList
                    data={this.state.datasource}
                    renderItem={({item})=>(
-            <View style={{flexDirection:'row',marginTop: 10,marginLeft:10}}>
+                    
+            <View style={{flexDirection:'row',marginTop: 20,marginLeft:10}}>
+                <Swipeout 
+                right={swipeOutbtn} 
+                autoClose={true} 
+                backgroundColor="transparent"
+                onOpen={this.onopenSwipe(item.product.id)}
+                onClose={this.oncloseSwipe(item.product.id)}
+               
+                >
+            
                 <Image source={{uri:item.product.product_images}} style={{width:80,height:80}}/>
+
                     <View style={{flexDirection:'column',marginLeft:20}}>
+                                  <InputSpinner 
+                                  background="transparent"
+                                  value={item.quantity} 
+                                  style={MycartStyles.spinner} 
+                                  max={8} 
+                                  min={1} 
+                                  colorMax={"#f04048"} 
+                                  colorMin={"#40c5f4"}
+                                  onChange={(quantity)=> this.updatingCart(quantity,item.product.id)  }
+                                    background="transparent"
+                                  
+                                   />
                              <Text style={{fontSize:20}}>{item.product.name}</Text>
-                                <View style={{flexDirection:'row',flex:1}}>
+                            <View style={{flexDirection:'row',flex:1}}>
                                     <Text style={{fontStyle:'italic',fontSize:18}}>{item.product.product_category}</Text>
-                                    <Text>{item.quantity}</Text>
+                                    
+                                    
 
                                      <View style={{paddingHorizontal:120}}>
                                         <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
                                      </View>
-                                 </View>
-                                 <View style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:5}}/>
-              </View>
-            
-                        <View>
-
-                            <Picker style={{width:100,color:'black'}}
-                                    selectedValue={this.state.language}
-                                    onValueChange={(lang)=>this.setState({language:lang})}>
-
-                                     <Picker.Item label="Java" value="java" />
-                                     <Picker.Item label="JavaScript" value="js" />
-
-                                    </Picker>
-
-
-                            
-                            
+                            </View>
+                            <View style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:5}}/>
+                    </View>
+                    </Swipeout>
+                             
                         </View>
-                      
-                        
-                               
-            </View>
+                     
                    )}
                    keyExtractor={(item, index) => index.toString()}/>
+             
+                   
+  
+
                         <View style={{flex:0,bottom:0,position:'absolute',marginBottom:40,paddingLeft:30}}>
                        <View style={{flexDirection:'row'}}>
                         <Text style={{fontSize:25,marginLeft:80}}>Total</Text>
@@ -142,5 +251,9 @@ export default class myCart extends Component{
 const MycartStyles = StyleSheet.create({
     container:{
         flex:1,
+    },
+    spinner:{
+            height:50,
+            width:150
     }
 });

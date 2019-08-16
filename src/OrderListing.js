@@ -39,7 +39,7 @@ export default class OrderListing extends Component {
     .then((response)=>response.json())
     .then((responseJson)=>{
         this.setState({
-          datasource:responseJson.data.reverse()
+          datasource:responseJson.data
         })
       
     }) .catch((err)=>
