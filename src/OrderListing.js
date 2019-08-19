@@ -18,16 +18,11 @@ export default class OrderListing extends Component {
   componentDidMount(){
             this.orderListAPI()
        }
-
-
-     async orderListAPI(){
+    async orderListAPI(){
        try {
          const token = await AsyncStorage.getItem('@NeoStore_at')
          console.log('order listing token is:'+token)
-
-
-       
-    const fetchData={
+        const fetchData={
       method:'GET',
       headers:{
          access_token:token,
@@ -48,12 +43,9 @@ export default class OrderListing extends Component {
   }catch(error){
     console.log(error.message)
   }
-    
+   }
 
-       }
-
-
-  render() {
+   render() {
     const{navigate}=this.props.navigation;
 
     console.log('order listing data is:',this.state.datasource)

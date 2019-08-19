@@ -4,6 +4,7 @@ import images from '../Constant/Images';
 import Input from '../Component/Input';
 import Toptext from '../Component/Toptext';
 import RoundButton from '../Component/RoundButton';
+import {Ionicons} from '@expo/vector-icons';
 
 
 
@@ -116,7 +117,8 @@ return(
         <View style={loginStyle.Account}>
             <Text style={loginStyle.AccountText}>DONT HAVE AN ACCOUNT</Text>
             <TouchableOpacity onPress={()=>navigate('thirdpage')} style={loginStyle.AccoutBtn} >
-                <Image  source={images.Account}/>
+                {/* <Image  source={images.Account}/> */}
+                <Ionicons name="md-jet" size={30} color="white" />
             </TouchableOpacity>
 
         </View>
@@ -151,14 +153,14 @@ const loginStyle = StyleSheet.create({
         flexDirection:'row',
         position:'absolute',
         bottom:30,
-        marginHorizontal: 10,
+        marginHorizontal:5,
      },
      AccountText:{
          fontSize:20,
          color:'white'
     },
     AccoutBtn:{
-   paddingLeft:50
+            paddingLeft:20
     }
 })
 

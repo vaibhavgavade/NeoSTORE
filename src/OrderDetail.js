@@ -4,10 +4,7 @@ import { Item } from 'native-base';
 
 
 export default class OrderDetail extends Component {
-
-
-
-  constructor(props) {
+constructor(props) {
     super(props);
     this.state = {
       datasource:[],
@@ -16,8 +13,6 @@ export default class OrderDetail extends Component {
      
     }
   }
-
-
 
   componentDidMount(){
     this.orderDFetchData()

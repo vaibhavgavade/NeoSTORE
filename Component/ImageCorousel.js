@@ -82,7 +82,7 @@ class ImageCorousel extends React.Component {
 const styles = StyleSheet.create({
   backgroundImage: {
     height: "100%",
-    width: Dimensions.get("window").width
+    width: Dimensions.get("window").width,
   },
   circleDiv: {
     position: "absolute",
@@ -92,14 +92,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: 10
+    height: 10,
+   color:'red'
   },
+
   whiteCircle: {
     width: 6,
     height: 6,
     borderRadius: 3,
     margin: 5,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    
   }
 });
 

@@ -16,11 +16,7 @@ export default class DrawerData extends Component{
                 fName:'',
                 lName:'',
 
-
-
-
-            drawerInformation:[
-                
+                drawerInformation:[
                 {image:images.purchase, title:'My Carts',action:'cart'},
                 {image:images.tables,title:'Tables',action:'Tables',id:'1'},
                 {image:images.chair,title:'Chairs',action:'Tables',id:'2'},
@@ -81,7 +77,7 @@ export default class DrawerData extends Component{
            onPress={()=>this.props.navigation.navigate(item.action,{id:item.id})}
            //onPress={()=>console.log('tapping')}
            >
-               
+               <Image></Image>
                <Image style={{height:35,width:35}} source={item.image}/>
             
              

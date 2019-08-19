@@ -37,7 +37,8 @@ const images = {
     account:require('../Images/account.png'),
     order:require('../Images/myorders.png'),
     logout:require('../Images/logout.png'),
-    deleteBtn:require('../Images/delete.png')
+    deleteBtn:require('../Images/delete.png'),
+    AppIcon:require('../Images/Appicon.png')
 
 
 }

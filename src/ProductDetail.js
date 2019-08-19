@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text ,StyleSheet,Image,ScrollView,TouchableOpacity,Modal,TextInput,KeyboardAvoidingView,TouchableWithoutFeedback} from 'react-native';
 import images from '../Constant/Images';
 import MyRating from '../Component/MyRating'
+import {Ionicons} from '@expo/vector-icons'
 //import share from 'react-native-share';
 
 
@@ -193,7 +194,8 @@ addToCart(){
              </View>
              {/* <View style={{flex:0.1}}> */}
                  <TouchableOpacity >
-             <Image source={images.shareImg}/>
+             {/* <Image source={images.shareImg}/> */}
+             <Ionicons name="md-share-alt" size={30} color="#008b8b"/>
              
           </TouchableOpacity>
           {/* </View> */}
