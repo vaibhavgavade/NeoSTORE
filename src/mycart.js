@@ -4,6 +4,11 @@ import Swipeout from 'react-native-swipeout';
 import images from  '../Constant/Images';
 import InputSpinner from 'react-native-input-spinner';
 import {Ionicons} from '@expo/vector-icons';
+import context from '../Context/context';
+import Api from '../Component/Api'
+
+
+
 
 export default class myCart extends Component{
 
@@ -28,6 +33,8 @@ export default class myCart extends Component{
         }
     }
 
+
+
    static navigationOptions =({navigation})=>({
    headerTitleStyle:{
         fontSize:30,
@@ -36,92 +43,65 @@ export default class myCart extends Component{
     componentDidMount(){
          this.fetchApiData()
      }
-    async fetchApiData(){
-            try {
-            const token = await AsyncStorage.getItem('@NeoStore_at')
-            console.log(token)
-                // console.log('Acesss token is:'+token)
-                // this.setState({access_token:token})
-            const fetchData={
-            method:'GET',
-            headers:{
-                access_token:token,
-                 'Content-Type':'application/json'
-            }
-        };
-        return fetch('http://staging.php-dev.in:8844/trainingapp/api/cart',fetchData)
-        .then(response =>response.json())
-        .then(responseJson=>{
+      fetchApiData(){
+  
+  
+         const method="GET";
+         const url="cart";
+        return Api(url,method,null)
+        .then(responseJson =>{
+
             this.setState({
                 datasource:responseJson.data,
                 total:responseJson.total,
                 cartCount:responseJson.count
-               })
+            })
+        }).catch(err=>{
+            console.error(err)
         })
-        .catch(error=>{
-            console.error(error)
-
-        })
-    }catch(error){
-        console.log(error.message)
-    }
 }
-         deleteCart(id){
+         deleteCart(id,Ab){
          console.log('Delete Pressed'+this.state.myid);
-        const product_id = id;
-        const fetchData={
-            method:'POST',
-            headers:{
-                access_token:'5cebf6e5139b6', 
-                'Content-Type':'application/x-www-form-urlencoded'
-            },
-            body:`product_id=${product_id}`
-        };
-        return fetch('http://staging.php-dev.in:8844/trainingapp/api/deleteCart',fetchData)
-        .then((response)=>response.json())
-        .then((responseJson)=>{
-            console.log('Done delete Api is called')
-            console.log(responseJson)
-            this.fetchApiData()
-        })
-        .catch((err)=>
-            console.log(err)
-        )
+         const product_id = id;
+     
+     
+            const method = 'POST'
+            const body = `product_id=${product_id}`
+            const url = 'deleteCart'
+            return Api(url,method,body)
+            .then(responseJson=>{
+                    console.log("delete cart here")
+                    console.log(responseJson)
+                    this.fetchApiData()
+            })
+            .catch(err=>{
+                console.error(err)
+            })
+      
 }
 
-   async updatingCart(value, id){
+    updatingCart(value, id){
        const quantity=value;
        const product_id=id;
        console.log(quantity+" vaibhav gavade "+product_id)
        console.log("Done")
-       try{
-           
-            const token = await AsyncStorage.getItem('@NeoStore_at')
-             console.log('updating Cart token is:'+token)
-             const fetchData={
-            method:'POST',
-            headers:{
-                access_token:token,
-                'Content-Type':'application/x-www-form-urlencoded'
-            },
-            body:`product_id=${product_id}&quantity=${quantity}`
-        };
-        return fetch('http://staging.php-dev.in:8844/trainingapp/api/editCart',fetchData)
-        .then((response)=>response.json())
-        .then((responseJson)=>{
-            console.log("call Api")
-            console.log(responseJson)
-             this.fetchApiData()
+ 
+   
+            const method="POST";
+            const url="editCart";
+            const body=`product_id=${product_id}&quantity=${quantity}`;
+            return Api(url,method,body)
+            .then((responseJson)=>{
+                console.log("Add cart data is"+responseJson)
+                this.fetchApiData()
+            }).catch(err=>{
+                console.error(err)
             })
-        .catch((err)=>
-            console.log(err)
-        )
-    }
-    catch(err){
-        console.log(err)}
+            
   }
      render(){
             const swipeOutbtn=[{
+    
             onPress: ()=>this.deleteCart(this.state.myid),
             backgroundColor: 'white',
             component:(
@@ -144,12 +124,15 @@ export default class myCart extends Component{
                    renderItem={({item})=>(
                     
             <View style={{marginTop: 20,marginLeft:10}}>
+                
                 <Swipeout 
                 right={swipeOutbtn} 
                 autoClose={true} 
                 backgroundColor="transparent"
                 onOpen={this.onopenSwipe(item.product.id)}
                 onClose={this.oncloseSwipe(item.product.id)}>
+
+                  
              <Image source={{uri:item.product.product_images}} style={{width:100,height:100}}/>
              <Text style={{fontSize:20}}>{item.product.name}</Text>
                 <View style={{flexDirection:'row'}}>
@@ -165,12 +148,25 @@ export default class myCart extends Component{
                                   colorMin={"#40c5f4"}
                                   onChange={(quantity)=> this.updatingCart(quantity,item.product.id)  }
                                   background="transparent" />
+                                 
                            
                           <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
+                          <View style={{marginHorizontal:20}}>
+                              <context.Consumer >
+                                  {contextValue=>(
+                                        <TouchableOpacity  onPress={()=>this.deleteCart(item.product.id,contextValue)}>
+                                        <Ionicons name="md-trash" color="red" size={30} />
+                                        </TouchableOpacity>
+                                  )}
+                          
+                          </context.Consumer>
+                          </View>
                  </View>
                 <View style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:5}}/>
                
                     </Swipeout>
+                   
+                
                     </View>
                      
                    )}

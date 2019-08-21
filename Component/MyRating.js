@@ -32,7 +32,8 @@ render() {
 const styles = StyleSheet.create({
 container:{
     flexDirection:'row',
-    alignItems:'center'
+    alignItems:'center',
+    marginHorizontal:20
 
     },
     image:{

@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons'
 
 
 
+
 export default class DrawerData extends Component{
 
     constructor(props){
@@ -17,7 +18,7 @@ export default class DrawerData extends Component{
                 lName:'',
 
                 drawerInformation:[
-                {image:images.purchase, title:'My Carts',action:'cart'},
+                {image:images.purchase, title:'My Carts',action:'cart',number:'0'},
                 {image:images.tables,title:'Tables',action:'Tables',id:'1'},
                 {image:images.chair,title:'Chairs',action:'Tables',id:'2'},
                 {image:images.sofa,title:'Sofas',action:'Tables',id:'3'},
@@ -77,11 +78,10 @@ export default class DrawerData extends Component{
            onPress={()=>this.props.navigation.navigate(item.action,{id:item.id})}
            //onPress={()=>console.log('tapping')}
            >
-               <Image></Image>
-               <Image style={{height:35,width:35}} source={item.image}/>
-            
              
-               <Text style={DrawerStyles.textData}>{item.title}</Text>
+               <Image style={{height:35,width:35}} source={item.image}/>
+              <Text style={DrawerStyles.textData}>{item.title}</Text>
+              <Text style={{marginHorizontal:10}}>{item.number}</Text>
     
              
            </TouchableOpacity>

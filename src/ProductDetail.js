@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, Text ,StyleSheet,Image,ScrollView,TouchableOpacity,Modal,TextInput,KeyboardAvoidingView,TouchableWithoutFeedback} from 'react-native';
 import images from '../Constant/Images';
 import MyRating from '../Component/MyRating'
-import {Ionicons} from '@expo/vector-icons'
+import {Ionicons} from '@expo/vector-icons';
+import context from '../Context/context';
+import Api from '../Component/Api'
 //import share from 'react-native-share';
 
 
@@ -57,33 +59,30 @@ export default class ProductDetail extends Component {
 }
 
 
-AddingCartItems(){
+AddingCartItems(Ab){
+
     {this.addToCart()}
     {this.setState({modalVisible:!this.state.modalVisible})}
+    // Ab.getData()
 }
   
 addToCart(){
     const {navigation}=this.props
     const quantity = this.state.quantity;
     const product_id = navigation.getParam('productId')
-    const fetchData={
-        method:'POST',
-        headers:{
-            access_token:'5cebf6e5139b6', 
-            'Content-Type':'application/x-www-form-urlencoded'
-        },
-        body:`product_id=${product_id}&quantity=${quantity}`
-    };
-    return fetch('http://staging.php-dev.in:8844/trainingapp/api/addToCart',fetchData)
-    .then((response)=>response.json())
-    .then((responseJson)=>{
-        console.log(responseJson)
-
-    })
-    .catch((err)=>
-        console.log(err)
-    )
-
+    
+        const method = "POST";
+        const url = "addToCart"
+        const body = `product_id=${product_id}&quantity=${quantity}`
+        return Api(url,method,body)
+        .then(responseJson=>{
+            console.log("Add cart data is:"+responseJson)
+        })
+        .catch(err=>{
+            console.error(err)
+        })
+      
+        
 }
 
 
@@ -95,28 +94,22 @@ addToCart(){
     
      const product_id = itemData
    
-      const productDfetchdata = {
-          method:'GET',
-          headers:{
-              'Accept':'application/json',
-              'Content-Type':'application/json'
-          }
-};
 
 
-     fetch(`http://staging.php-dev.in:8844/trainingapp/api/products/getDetail?product_id=${product_id}`,productDfetchdata)
-     .then(response=>response.json())
-     .then(responseJson=>{
-            this.setState({
-                productDetailData:responseJson.data,
-                productImages:responseJson.data.product_images,
-                bigImage:responseJson.data.product_images[0].image
-    
+            const method = "GET";
+            const url = `products/getDetail?product_id=${product_id}`
+           
+            return Api(url,method,null)
+            .then(responseJson=>{
+                this.setState({
+                    productDetailData:responseJson.data,
+                    productImages:responseJson.data.product_images,
+                    bigImage:responseJson.data.product_images[0].image
+                })
+            }).catch(err=>{
+                console.error(err)
             })
-     })
-     .catch(err=>
-        console.error(err)
-        )};
+};
 
 
         productCategory(){
@@ -138,7 +131,7 @@ addToCart(){
               return this.state.productImages.map((item)=>{
                return(
                         <TouchableOpacity  key={item.image} onpress={()=>this.setState({bigImage:item.image})}>
-                <Image style={{width:80,height:80,borderWidth:1}} source={{uri:item.image}}/>
+                <Image style={{width:80,height:80,borderWidth:1,marginLeft:10, marginTop:10}} source={{uri:item.image}}/>
                 </TouchableOpacity>
                 );
               })
@@ -253,12 +246,16 @@ addToCart(){
                       </View>
                      
                         <View style={ProductStyle.buttonstyles}>
-                      <TouchableOpacity   onPress={()=>this.AddingCartItems() }>
+                            <context.Consumer >
+                                {contextValue=>(
+                                            <TouchableOpacity   onPress={()=>this.AddingCartItems(contextValue) }>
                           
-                          <Text style={{fontSize:30,textAlign:'center',color:'white',fontWeight:'bold'}} >Submit</Text>
-                         
-                      </TouchableOpacity>
-                        
+                                            <Text style={{fontSize:30,textAlign:'center',color:'white',fontWeight:'bold'}} >Submit</Text>
+                                           
+                                        </TouchableOpacity>
+                                )}
+                      
+                      </context.Consumer>
                      
                       </View>
                      

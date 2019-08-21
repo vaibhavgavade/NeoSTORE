@@ -5,11 +5,8 @@ import Input from '../Component/Input';
 import Toptext from '../Component/Toptext';
 import RoundButton from '../Component/RoundButton';
 import {Ionicons} from '@expo/vector-icons';
+import Api from '../Component/Api';
 
-
-
-// import fontData from '../Constant/MyFonts';
-// import inputData from '../Component/input';
 
 
 
@@ -33,27 +30,23 @@ export default class firstScreen extends Component{
 
         const username=this.state.username;
         const password=this.state.password;
-            const fechLoginData={
-                method:'POST',
-                headers:{
-                    // 'Accept':'application/json',
-                    'Content-Type':'application/x-www-form-urlencoded'
 
 
-                },
-                body:`email=${username}&password=${password}`
-
-            };
-           return fetch('http://staging.php-dev.in:8844/trainingapp/api/users/login',fechLoginData)
-           .then((response)=>response.json())
-           .then((responseJson)=>{
-               this.setState({
-                   datasource:responseJson
-                
-                })
-               this.mySucessFullData()
-           
-           })
+            const method='POST';
+            const body=`email=${username}&password=${password}`;
+            const url='users/login'
+            return Api(url,method,body)
+            .then(responseJson=>{
+                console.log("Done")
+                console.log("response data is:"+responseJson)
+                this.setState({
+                datasource:responseJson})
+                this.mySucessFullData()
+            })
+            .catch(err=>{
+                    console.error(err)
+            })
+            
 };
 
       mySucessFullData(){
@@ -118,7 +111,7 @@ return(
             <Text style={loginStyle.AccountText}>DONT HAVE AN ACCOUNT</Text>
             <TouchableOpacity onPress={()=>navigate('thirdpage')} style={loginStyle.AccoutBtn} >
                 {/* <Image  source={images.Account}/> */}
-                <Ionicons name="md-jet" size={30} color="white" />
+                <Ionicons name="md-arrow-round-forward" size={30} color="white" />
             </TouchableOpacity>
 
         </View>

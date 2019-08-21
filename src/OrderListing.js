@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text,Image,FlatList,TouchableOpacity,StyleSheet,AsyncStorage} from 'react-native';
+import Api from '../Component/Api';
 
 export default class OrderListing extends Component {
   constructor(props) {
@@ -18,31 +19,27 @@ export default class OrderListing extends Component {
   componentDidMount(){
             this.orderListAPI()
        }
-    async orderListAPI(){
-       try {
-         const token = await AsyncStorage.getItem('@NeoStore_at')
-         console.log('order listing token is:'+token)
-        const fetchData={
-      method:'GET',
-      headers:{
-         access_token:token,
-        'Content_Type':'application/x-www-form-urlencoded'
-      },
-      
-    };
-    fetch('http://staging.php-dev.in:8844/trainingapp/api/orderList',fetchData)
-    .then((response)=>response.json())
-    .then((responseJson)=>{
-        this.setState({
-          datasource:responseJson.data
+     orderListAPI(){
+ 
+        const method='GET';
+        const url='orderList';
+        const body=null
+        return Api(url,method,body)
+        .then(responseJson=>{
+          console.log("Done")
+          console.log("order listing data is:"+responseJson)
+          this.setState({
+              datasource:responseJson.data},
+              function() {}
+              
+              )
+        }).catch(err=>{
+            console.error(err)
         })
-      
-    }) .catch((err)=>
-      console.error(err))
 
-  }catch(error){
-    console.log(error.message)
-  }
+
+
+
    }
 
    render() {
