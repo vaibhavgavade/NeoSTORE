@@ -17,6 +17,7 @@ import OrderDetail from './src/OrderDetail';
 import StartingNeoPage from './src/StartingNeoPage';
 import LoginFPassword from './src/LoginFPassword';
 import editprofile from './src/editProfile';
+import {scale} from 'react-native-size-matters'
 
 
 
@@ -221,7 +222,7 @@ const Drawer = createDrawerNavigator({
     contentComponent:DrawerData,
     drawerBackgroundColor:'white',
     drawerType:'slide',
-    drawerWidth:250,
+    drawerWidth:scale(250),
 
   
   },

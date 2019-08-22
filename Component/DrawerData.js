@@ -3,6 +3,7 @@ import {View,Text,StyleSheet,Image,AsyncStorage} from 'react-native';
 import images from '../Constant/Images';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons'
+import {scale} from 'react-native-size-matters'
 
 
 
@@ -62,12 +63,12 @@ export default class DrawerData extends Component{
            <View style={DrawerStyles.D}>
 
             <View style={{justifyContent:'center',alignItems:'center'}}>    
-                <Image style={{height:100,width:100,borderRadius:50}} source={images.profile}/>
+                <Image style={{height:scale(100),width:scale(100),borderRadius:scale(50)}} source={images.profile}/>
                 <View style={{flexDirection:'row'}}>
-                <Text style={{color:'black',fontSize:20}}>{this.state.fName}</Text>
-                <Text style={{color:'black',fontSize:20,paddingLeft:10}}>{this.state.lName}</Text>
+                <Text style={{color:'black',fontSize:scale(20)}}>{this.state.fName}</Text>
+                <Text style={{color:'black',fontSize:scale(20),paddingLeft:scale(10)}}>{this.state.lName}</Text>
                 </View>
-                <Text style={{color:'black',fontSize:15,fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
+                <Text style={{color:'black',fontSize:scale(15),fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
             </View>
             <FlatList
 
@@ -79,7 +80,7 @@ export default class DrawerData extends Component{
            //onPress={()=>console.log('tapping')}
            >
              
-               <Image style={{height:35,width:35}} source={item.image}/>
+               <Image style={{height:scale(35),width:scale(35)}} source={item.image}/>
               <Text style={DrawerStyles.textData}>{item.title}</Text>
               <Text style={{marginHorizontal:10}}>{item.number}</Text>
     
@@ -113,8 +114,8 @@ const DrawerStyles = StyleSheet.create({
     },
     textData:{
         color:'#000000',
-        fontSize:20,
-        paddingLeft:25
+        fontSize:scale(20),
+        paddingLeft:scale(25)
 
     }
 })

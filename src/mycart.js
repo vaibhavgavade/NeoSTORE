@@ -7,12 +7,8 @@ import {Ionicons} from '@expo/vector-icons';
 import context from '../Context/context';
 import Api from '../Component/Api'
 
-
-
-
 export default class myCart extends Component{
-
-    constructor(props){
+constructor(props){
         super(props);
         this.state={
             datasource:[],
@@ -33,9 +29,7 @@ export default class myCart extends Component{
         }
     }
 
-
-
-   static navigationOptions =({navigation})=>({
+static navigationOptions =({navigation})=>({
    headerTitleStyle:{
         fontSize:30,
      }
@@ -44,13 +38,10 @@ export default class myCart extends Component{
          this.fetchApiData()
      }
       fetchApiData(){
-  
-  
-         const method="GET";
+        const method="GET";
          const url="cart";
         return Api(url,method,null)
         .then(responseJson =>{
-
             this.setState({
                 datasource:responseJson.data,
                 total:responseJson.total,
@@ -63,8 +54,6 @@ export default class myCart extends Component{
          deleteCart(id,Ab){
          console.log('Delete Pressed'+this.state.myid);
          const product_id = id;
-     
-     
             const method = 'POST'
             const body = `product_id=${product_id}`
             const url = 'deleteCart'
@@ -79,14 +68,11 @@ export default class myCart extends Component{
             })
       
 }
-
     updatingCart(value, id){
        const quantity=value;
        const product_id=id;
        console.log(quantity+" vaibhav gavade "+product_id)
        console.log("Done")
- 
-   
             const method="POST";
             const url="editCart";
             const body=`product_id=${product_id}&quantity=${quantity}`;
@@ -101,7 +87,6 @@ export default class myCart extends Component{
   }
      render(){
             const swipeOutbtn=[{
-    
             onPress: ()=>this.deleteCart(this.state.myid),
             backgroundColor: 'white',
             component:(
@@ -131,12 +116,9 @@ export default class myCart extends Component{
                 backgroundColor="transparent"
                 onOpen={this.onopenSwipe(item.product.id)}
                 onClose={this.oncloseSwipe(item.product.id)}>
-
-                  
-             <Image source={{uri:item.product.product_images}} style={{width:100,height:100}}/>
+                <Image source={{uri:item.product.product_images}} style={{width:100,height:100}}/>
              <Text style={{fontSize:20}}>{item.product.name}</Text>
                 <View style={{flexDirection:'row'}}>
-                            
                             <Text style={{fontStyle:'italic',fontSize:18}}>{item.product.product_category}</Text>
                                   <InputSpinner 
                                   background="transparent"
@@ -148,9 +130,7 @@ export default class myCart extends Component{
                                   colorMin={"#40c5f4"}
                                   onChange={(quantity)=> this.updatingCart(quantity,item.product.id)  }
                                   background="transparent" />
-                                 
-                           
-                          <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
+                                <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
                           <View style={{marginHorizontal:20}}>
                               <context.Consumer >
                                   {contextValue=>(
@@ -163,13 +143,9 @@ export default class myCart extends Component{
                           </View>
                  </View>
                 <View style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:5}}/>
-               
-                    </Swipeout>
-                   
-                
-                    </View>
-                     
-                   )}
+               </Swipeout>
+            </View>
+                      )}
                    keyExtractor={(item, index) => index.toString()}/>
                     <View style={{flex:0,bottom:0,position:'absolute',marginBottom:40,paddingLeft:30}}>
                        <View style={{flexDirection:'row'}}>
@@ -182,7 +158,6 @@ export default class myCart extends Component{
                          </TouchableOpacity>  
                          </View>
                         </View>
-
                  </View> 
                  );
                    }

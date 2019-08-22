@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text ,StyleSheet,Image,KeyboardAvoidingView,ScrollView,AsyncStorage,TouchableOpacity,Button } from 'react-native';
+import { View, Text ,StyleSheet,Image,KeyboardAvoidingView,ScrollView,AsyncStorage,TouchableOpacity,Button,Dimensions} from 'react-native';
 import images from '../Constant/Images';
 import RoundButton from '../Component/RoundButton';
 import Colors from '../Constant/Colors';
-
-
+import Api from '../Component/Api';
+import {scale,verticalScale} from 'react-native-size-matters';
+const{height,width}=Dimensions.get('window')
 
 export default class MyAccount extends Component {
   constructor(props) {
@@ -19,27 +20,19 @@ componentDidMount(){
     this.callMyAccountApi()
     console.log('datasource data is'+this.state.datasource)
   }
- async callMyAccountApi(){
-      const token = await AsyncStorage.getItem('@NeoStore_at')
-      console.log('Acess token is:'+token)
+  callMyAccountApi(){
 
-  const fetchData={
-    method:'GET',
-    headers:{
-      access_token:token,
-      'Content-Type':'application/x-www-form-urlencoded'
-    }
-  };
-
-  return fetch('http://staging.php-dev.in:8844/trainingapp/api/users/getUserData',fetchData)
-      .then((response)=>response.json())
-      .then((responseJson)=>{
-            //  console.log(responseJson)
-           this.setState({
-              datasource:responseJson.data.user_data
-           
-           })
+      const method = 'GET';
+      const url='users/getUserData';
+      return Api(url,method,null)
+      .then(responseJson=>{
+          this.setState({
+            datasource:responseJson.data.user_data
+          })
+      }).catch(err=>{
+        console.error(err)
       })
+  
 }
 
 static navigationOptions =({navigation})=>({
@@ -55,13 +48,14 @@ static navigationOptions =({navigation})=>({
 
   
   render() {
+    console.log(this.state.datasource)
   
     return (
       <KeyboardAvoidingView style={myAccountstyles.container}>
       
      
         <View style={{justifyContent:'center',alignItems:'center',marginVertical:20}}>    
-                <Image style={{height:135,width:135,borderRadius:65}} source={images.profile}/>
+                <Image style={{height:scale(80),width:scale(80),borderRadius:scale(40)}} source={images.profile}/>
         </View>
 
         <ScrollView>
@@ -138,18 +132,21 @@ const myAccountstyles=StyleSheet.create({
   container:{
     flex: 1,
     backgroundColor:'#fe3f3f',
+    height:height,
+    width:width
     
   },
   ResetPassword:{
     backgroundColor:Colors.c1,
-    height:51,
+    height:scale(41),
     justifyContent:'center',
     alignItems:'center',
-   marginTop:70
+   marginTop:scale(35)
+
     
   },
   textStyles:{
-    fontSize:25,
+    fontSize:scale(25),
     color:'red'
   },
 
@@ -157,13 +154,13 @@ const myAccountstyles=StyleSheet.create({
 
   
     A: {
-          marginTop: 20,
-          marginHorizontal: 13,
+          marginTop: scale(15),
+          marginHorizontal: scale(13),
           flexDirection: "row",
-          borderRadius: 4,
-          borderWidth: 2,
+          borderRadius: scale(4),
+          borderWidth: scale(2),
           borderColor:'white',
-          height:41,
+          height:verticalScale(41),
          
   },
         
@@ -174,16 +171,18 @@ const myAccountstyles=StyleSheet.create({
       },
       
   A2: {
-          flex: 5,
-      marginTop:10,
-      paddingLeft:5,
-      textDecorationColor:'white',
+        flex: 5,
+      // marginTop:scale(10),
+      paddingLeft:scale(5),
+      textDecorationColor:'white'
    
          
       },
       A3:{
-          fontSize:15,
-          color:'white'
+          fontSize:scale(15),
+          color:'white',
+         alignItems:'center',
+         justifyContent:'center'
       }
  
   

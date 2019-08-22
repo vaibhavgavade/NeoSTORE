@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet,Text,TouchableOpacity} from 'react-native';
-import Colors from '../Constant/Colors'
+import Colors from '../Constant/Colors';
+import {scale,verticalScale,moderateScale} from 'react-native-size-matters'
 
 
 const RoundButton = props => (
@@ -22,15 +23,15 @@ const styles=StyleSheet.create({
             justifyContent:'center',
             alignItems:'center',
             backgroundColor:Colors.c1,
-            height:52,
-            marginHorizontal:13,
-            borderRadius:5,
+            height:verticalScale(52),
+            marginHorizontal:scale(13),
+            borderRadius:scale(5),
             fontWeight:'200',
-            marginTop:20
+            marginTop:scale(20)
 
     },
     butttonText:{
-            fontSize:30,
+            fontSize:scale(30),
            color:Colors.c2
     }
 });

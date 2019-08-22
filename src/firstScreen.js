@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import {View,Text,TextInput,StyleSheet,Image,TouchableOpacity,Button,KeyboardAvoidingView,AsyncStorage,SafeAreaView} from 'react-native';
+import {View,Text,TextInput,StyleSheet,Image,TouchableOpacity,Button,KeyboardAvoidingView,AsyncStorage,SafeAreaView,Dimensions} from 'react-native';
 import images from '../Constant/Images';
 import Input from '../Component/Input';
 import Toptext from '../Component/Toptext';
 import RoundButton from '../Component/RoundButton';
 import {Ionicons} from '@expo/vector-icons';
 import Api from '../Component/Api';
-
-
-
-
+const {height,width}=Dimensions.get('window')
+import {scale,moderateScale,verticalScale} from 'react-native-size-matters'
 export default class firstScreen extends Component{
-
     constructor(){
         super();
         this.state = {
@@ -20,18 +17,12 @@ export default class firstScreen extends Component{
             datasource:[]
         }
     }
-
-    static navigationOptions = {
+     static navigationOptions = {
         title:'first Screen'
     }
-
-
-  LoginMethod() {
-
+LoginMethod() {
         const username=this.state.username;
         const password=this.state.password;
-
-
             const method='POST';
             const body=`email=${username}&password=${password}`;
             const url='users/login'
@@ -46,10 +37,8 @@ export default class firstScreen extends Component{
             .catch(err=>{
                     console.error(err)
             })
-            
-};
-
-      mySucessFullData(){
+    };
+         mySucessFullData(){
           const {navigate}=this.props.navigation
           if(this.state.datasource.status==200){
              this.saveKey(
@@ -69,11 +58,8 @@ export default class firstScreen extends Component{
           } else {
             alert("Something Went Wrong");
           }
-   
-        
-    }
+   }
     async saveKey(value1,value2,value3,value4){
-                
         const fname=['@NeoStore_fname',value1];
         const lname=['@NeoStore_lname',value2];
         const email=['@NeoStore_email',value3];
@@ -81,22 +67,17 @@ export default class firstScreen extends Component{
         try{
             await AsyncStorage.multiSet([fname,lname,email,acess_token]);
             console.log('Done')
-            
-
-        }
+            }
         catch(error){
             console.log(error.message)
         }
     }
 
-
-  render(){
-      
-      const{navigate}=this.props.navigation
-     
-return(
-          
-           <View style={loginStyle.container}>   
+        render(){
+            console.log("Height is"+height+" " +"width is"+width)
+            const{navigate}=this.props.navigation
+         return(
+          <View style={loginStyle.container}>   
         <View>
         <Toptext>NeoSTORE</Toptext>
         <Input image={images.username} placeholder='Username' onChangeText={(username)=>this.setState({username})}/>
@@ -104,31 +85,27 @@ return(
         <RoundButton onPress={()=>this.LoginMethod()} >Login</RoundButton>
         </View>
         <TouchableOpacity style={loginStyle.passwordLbl} onPress={()=>navigate('lforot')}>
-        <Text style={loginStyle.textPassword}>Forot Password</Text>
+        <Text style={loginStyle.textPassword}>Forgot Password</Text>
         </TouchableOpacity>
-      
         <View style={loginStyle.Account}>
             <Text style={loginStyle.AccountText}>DONT HAVE AN ACCOUNT</Text>
             <TouchableOpacity onPress={()=>navigate('thirdpage')} style={loginStyle.AccoutBtn} >
                 {/* <Image  source={images.Account}/> */}
-                <Ionicons name="md-arrow-round-forward" size={30} color="white" />
+                <Ionicons name="md-arrow-round-forward" size={scale(30)} color="white" />
             </TouchableOpacity>
-
+            </View>
         </View>
-        </View>
-        
-
-
-
-    )
-} 
+         )
+            } 
 }
 
 const loginStyle = StyleSheet.create({
     container:{
         flex:1,
         justifyContent:'center',
-        backgroundColor:'#fe3f3f'
+        backgroundColor:'#fe3f3f',
+        height:height,
+        width:width
     },
     passwordLbl:{
         justifyContent:'center',
@@ -137,19 +114,17 @@ const loginStyle = StyleSheet.create({
        
     },
     textPassword:{
-        fontSize:25,
+        fontSize:scale(25),
         color:'white',
-     
-        
-    },
+      },
     Account:{
         flexDirection:'row',
         position:'absolute',
         bottom:30,
-        marginHorizontal:5,
+        marginHorizontal:scale(50)
      },
      AccountText:{
-         fontSize:20,
+         fontSize:scale(20),
          color:'white'
     },
     AccoutBtn:{

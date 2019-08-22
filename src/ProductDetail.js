@@ -4,7 +4,8 @@ import images from '../Constant/Images';
 import MyRating from '../Component/MyRating'
 import {Ionicons} from '@expo/vector-icons';
 import context from '../Context/context';
-import Api from '../Component/Api'
+import Api from '../Component/Api';
+import {scale} from 'react-native-size-matters';
 //import share from 'react-native-share';
 
 
@@ -131,7 +132,7 @@ addToCart(){
               return this.state.productImages.map((item)=>{
                return(
                         <TouchableOpacity  key={item.image} onpress={()=>this.setState({bigImage:item.image})}>
-                <Image style={{width:80,height:80,borderWidth:1,marginLeft:10, marginTop:10}} source={{uri:item.image}}/>
+                <Image style={{width:scale(50),height:scale(50),borderWidth:1,marginLeft:10, marginTop:10}} source={{uri:item.image}}/>
                 </TouchableOpacity>
                 );
               })
@@ -140,7 +141,7 @@ addToCart(){
                 if(this.state.productImages.length>0){
                     return(
                        
-                            <Image style={{width:257,height:178, paddingTop:10,paddingLeft:30}}  source ={{uri:this.state.bigImage}}/>
+                            <Image style={{width:scale(257),height:scale(178), paddingTop:scale(20),paddingLeft:30}}  source ={{uri:this.state.bigImage}}/>
                            
                     );
                 }
@@ -166,10 +167,10 @@ addToCart(){
  
       <View style={ProductStyle.P} >
          <View>
-             <Text style={{fontSize:25, }}>{this.state.productDetailData.name}</Text>
-             <Text style={{fontSize:22}}>{this.productCategory()}</Text>
+             <Text style={{fontSize:scale(25), }}>{this.state.productDetailData.name}</Text>
+             <Text style={{fontSize:scale(22)}}>{this.productCategory()}</Text>
              <View style={{flexDirection:'row'}}>
-             <Text style={{fontSize:20}}>{this.state.productDetailData.producer}</Text>
+             <Text style={{fontSize:scale(20)}}>{this.state.productDetailData.producer}</Text>
              <MyRating ratings = {this.state.productDetailData.rating}/>
              </View>
 
@@ -183,12 +184,12 @@ addToCart(){
 
                 <View style={{flex:1,flexDirection:'row',paddingTop:20}}>
                     <View style={{flex:1}}>
-             <Text style={{fontSize:20,color:'red'}}>{this.state.productDetailData.cost}</Text>
+             <Text style={{fontSize:scale(20),color:'red'}}>{this.state.productDetailData.cost}</Text>
              </View>
              {/* <View style={{flex:0.1}}> */}
                  <TouchableOpacity >
              {/* <Image source={images.shareImg}/> */}
-             <Ionicons name="md-share-alt" size={30} color="#008b8b"/>
+             <Ionicons name="md-share-alt" size={scale(30)} color="#008b8b"/>
              
           </TouchableOpacity>
           {/* </View> */}
@@ -201,8 +202,8 @@ addToCart(){
              {this.imageData()}
              </ScrollView >
           
-             <ScrollView style={{height:50}} >
-             <Text style={{fontSize:20}}>{this.state.productDetailData.description}</Text>
+             <ScrollView style={{height:scale(50)}} >
+             <Text style={{fontSize:scale(20)}}>{this.state.productDetailData.description}</Text>
              </ScrollView>
 
 
@@ -213,15 +214,15 @@ addToCart(){
             <View style={{flex:1,flexDirection:'row', paddingVertical:10}}>
                  <View style={{flex:1,alignContent:'center'}}>
              
-             <TouchableOpacity  onPress={()=>{this.setState({modalVisible:true})}} style={{backgroundColor:'red',borderRadius:10,height:41 }} >
-                 <Text style={{fontSize:20,alignSelf:'center',paddingVertical:10,color:'white'}}>Buy Now</Text>
+             <TouchableOpacity  onPress={()=>{this.setState({modalVisible:true})}} style={{backgroundColor:'red',borderRadius:10,height:scale(41) }} >
+                 <Text style={{fontSize:scale(20),alignSelf:'center',paddingVertical:10,color:'white'}}>Buy Now</Text>
               
                   </TouchableOpacity>
      
              </View>
-             <View style={{flex:1,paddingLeft:20}}> 
-             <TouchableOpacity onPress={()=>{this.setState({rateModel:true})}} style={{backgroundColor:'#808080',borderRadius:10,height:41}}>
-                 <Text style={{fontSize:20,textAlign:'center',color:'white',paddingVertical:10 }}>Rate Now</Text>
+             <View style={{flex:1,paddingLeft:20,bottom:0}}> 
+             <TouchableOpacity onPress={()=>{this.setState({rateModel:true})}} style={{backgroundColor:'#808080',borderRadius:10,height:scale(41)}}>
+                 <Text style={{fontSize:scale(20),textAlign:'center',color:'white',paddingVertical:10 }}>Rate Now</Text>
              </TouchableOpacity>
              </View>
 

@@ -4,6 +4,8 @@ import Toptext from '../Component/Toptext';
 import Input from '../Component/Input';
 import RoundButton from '../Component/RoundButton';
 import images from '../Constant/Images'
+import Api from '../Component/Api';
+
 
 export default class ResetPassword extends Component {
   constructor(props) {
@@ -16,38 +18,24 @@ export default class ResetPassword extends Component {
     };
   }
 
-  async resetPasswordiS(){
-    try{
-        const token = await AsyncStorage.getItem('@NeoStore_at')
-        console.log('order placing token is:'+token)
-    
+   resetPasswordiS(){
             const old_password=this.state.first_name;
             const  password=this.state.last_name;
             const confirm_password=this.state.email;
             
- 
-    const fetchData={
-        method:'POST',
-        headers:{
-            'Content-Type':'application/x-www-form-urlencoded',
-            access_token:token
-          },
-          body:`old_password=${old_password}&password=${password}&confirm_password=${confirm_password}`
-    };
-
-    fetch('http://staging.php-dev.in:8844/trainingapp/api/users/change',fetchData)
-    .then((response)=>response.json())
-    .then((responseJson)=>{
-              this.setState({ datasource:responseJson})
-      console.log('reset password data:',responseJson)
-      this.sucessFull()
-    }).catch((err)=>
-          console.log(err)
-    )
-  }
-  catch(error){
-    console.log(error.message)
-  }
+      const method='POST';
+      const url="users/change";
+      const body=`old_password=${old_password}&password=${password}&confirm_password=${confirm_password}`
+      return Api(url,method,body)
+      .then(responseJson=>{
+        console.log("reset password data is:"+responseJson)
+          this.setState({
+            datasource:responseJson
+          })
+          this.sucessFull()
+      }).catch(err=>{
+        console.error(err)
+      })
 }
 
 sucessFull(){

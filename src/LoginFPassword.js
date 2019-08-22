@@ -10,30 +10,23 @@ export default class LoginFPassword extends Component {
     super(props);
     this.state = {
        email:''
-
-    };
+      };
   }
-
-  
-  
     callApiData(){
-
         const email=this.state.email
         console.log('password email is:'+email)
-      const fetchData={
+        const fetchData={
             method:'POST',
             headers:{
                 // 'Accept':'application/json',
                 'Content-Type':'application/x-www-form-urlencoded'
             },
             body:`email=${email}`
-    
-      }
+    }
      return fetch('http://staging.php-dev.in:8844/trainingapp/api/users/forgot',fetchData)
       .then((response)=>response.json())
       .then((responseJson)=>{
-         
-           this.setState({
+         this.setState({
                email:responseJson
            })
            this.wrongpassword()
@@ -41,8 +34,7 @@ export default class LoginFPassword extends Component {
   }
 
   wrongpassword(){
-      if(this.state.email.status==200)
-      {
+      if(this.state.email.status==200){
           {this.state.email.message}
       }
       else if(this.state.email.status==500){
@@ -60,13 +52,10 @@ export default class LoginFPassword extends Component {
   static navigationOptions =({navigation})=>({
     headerTitleStyle:{
       fontSize:30,
-     
-    }
+     }
    });
 
-
-
-  render() {
+ render() {
        return (
       <View style={styles.container}>
         <TopText>NeoSTORE</TopText>
@@ -76,9 +65,7 @@ export default class LoginFPassword extends Component {
         onChangeText={(email)=>this.setState({email})}
         />
         <RoundButton onPress={()=>this.callApiData()}>SUBMIT</RoundButton>
-
-        
-      </View>
+        </View>
     );
   }
 }

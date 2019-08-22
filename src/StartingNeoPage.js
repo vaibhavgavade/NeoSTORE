@@ -18,16 +18,14 @@ export default class StartingNeoPage extends Component {
     this.state = {
         activeValue:false
     };
-
-    setTimeout(() => {
+ setTimeout(() => {
         this.props.navigation.navigate('firstPage');
         this.setState({activeValue:true});
 
         }, 5000);
     }
 
-
-  render() {
+    render() {
       return (
       <View style={styles.container}>
           <Text style={{color:'white',fontSize:50}}>WELCOME</Text>
@@ -40,7 +38,6 @@ export default class StartingNeoPage extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
     container:{
         flex:1,

@@ -20,11 +20,11 @@ export default class editProfile extends Component {
 
     };
   }
-
+  
 //   componentDidMount(){
 //       this.callApiEdit()
 //   }
-async orderPlacing(){
+ async orderPlacing(){
     try{
         const token = await AsyncStorage.getItem('@NeoStore_at')
         console.log('order placing token is:'+token)
@@ -57,6 +57,8 @@ async orderPlacing(){
   catch(error){
     console.log(error.message)
   }
+
+     
 }
 
 sucessFull(){

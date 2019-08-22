@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StyleSheet, View, ScrollView, Dimensions, Image } from "react-native";
+import {scale,verticalScale,moderateScale} from 'react-native-size-matters'
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
@@ -92,15 +93,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    height: 10,
+    height: scale(10),
    color:'red'
   },
 
   whiteCircle: {
-    width: 6,
-    height: 6,
+    width: scale(6),
+    height: scale(6),
     borderRadius: 3,
-    margin: 5,
+    margin: scale(5),
     backgroundColor: "#fff",
     
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View,StyleSheet,Image} from 'react-native';
 import images from '../Constant/Images'
+import {scale} from 'react-native-size-matters'
 
 
 
@@ -37,8 +38,8 @@ container:{
 
     },
     image:{
-        width:15,
-        height:15
+        width:scale(15),
+        height:scale(15)
     },
    
 })

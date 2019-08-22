@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../Constant/Colors';
+import {scale,moderateScale,verticalScale} from 'react-native-size-matters'
 
 const Toptext = props =>(
     
@@ -18,11 +19,12 @@ const Styles = StyleSheet.create({
         marginTop:25,
         justifyContent:'center',
         alignItems:'center',
+        // height:verticalScale(41)
        
 
     },
     h2:{
-        fontSize:60,
+        fontSize:scale(60),
         color:Colors.c1
     }
 

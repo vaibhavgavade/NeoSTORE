@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text,FlatList,Image,AsyncStorage} from 'react-native';
-import { Item } from 'native-base';
-
-
+import Api from '../Component/Api'
+import {scale,verticalScale,moderateScale} from 'react-native-size-matters'
 export default class OrderDetail extends Component {
 constructor(props) {
     super(props);
@@ -10,88 +9,48 @@ constructor(props) {
       datasource:[],
       total:'',
       access_token:''
-     
-    }
+     }
   }
-
-  componentDidMount(){
+componentDidMount(){
     this.orderDFetchData()
   }
-
- async orderDFetchData(){
-
-    try{
-      const token = await AsyncStorage.getItem('@NeoStore_at')
-      console.log('Order detail token is:'+token)
-    
+ orderDFetchData(){
     const prouctData=this.props.navigation.getParam('orderId')
-   
-   console.log(prouctData)
-   const order_id = prouctData
-    const fetchdata={
-      method:'GET',
-      headers:{
-            access_token:token,
-          'Content_Type':'application/x-www-form-urlencoded'
-
-      }
-    };
-    fetch(`http://staging.php-dev.in:8844/trainingapp/api/orderDetail?order_id=${order_id}`,fetchdata)
-    .then((response)=>response.json())
-    .then((responseJson)=>{
-            this.setState({
-              datasource:responseJson.data.order_details,
-              total:responseJson.data.cost
-
-              
-
-            })
-
-            console.log('order deail is:',responseJson)
-      })
-      .catch((err)=>{
+    const order_id = prouctData
+    const method="GET"
+      const url = `orderDetail?order_id=${order_id}`
+      return Api(url,method,null)
+      .then(responseJson=>{
+        this.setState({
+          datasource:responseJson.data.order_details,
+          total:responseJson.data.cost
+        })
+      }).catch(err=>{
         console.error(err)
       })
-
-    }catch(error){
-      console.log(error.message)
-    }
-
-    }
-  
-
+  }
   render() {
     return (
       <View style={{marginTop:10,marginLeft:5}}>
-   
-     <FlatList
-      
-       data={this.state.datasource}
+   <FlatList
+      data={this.state.datasource}
        renderItem={({item})=>(
-        <View style={{flexDirection:'row',marginTop:20}}>
-         <Image source={{uri:item.prod_image}} style={{height:80,width:120}}/>
+        <View style={{flexDirection:'row',marginTop:scale(20)}}>
+         <Image source={{uri:item.prod_image}} style={{height:scale(80),width:scale(120),marginLeft:scale(10)}}/>
          <View style={{flexDirection:'column',marginLeft:20}}>
-         <Text style={{fontSize:18}}>{item.prod_name}</Text>
-      
-         <Text style={{fontStyle:'italic',color:'#808080',fontSize:15}}>({item.prod_cat_name})</Text>
+         <Text style={{fontSize:scale(18)}}>{item.prod_name}</Text>
+          <Text style={{fontStyle:'italic',color:'#808080',fontSize:scale(15)}}>({item.prod_cat_name})</Text>
           <View style={{flexDirection:'row'}}>
-         <Text style={{fontSize:20}}>QTY : {item.quantity}</Text>
-         <Text style={{paddingHorizontal:80,fontSize:20}}> {item.total}</Text>
-         </View>
-         
-       
+         <Text style={{fontSize:scale(20)}}>QTY : {item.quantity}</Text>
+         <Text style={{paddingHorizontal:scale(50),fontSize:scale(20)}}> {item.total}</Text>
          </View>
          </View>
-       
-       
-        
+         </View>
        )}/>
        <View style={{flexDirection:'row',marginTop:40}}>
-       <Text style={{paddingLeft:25,fontSize:25,fontWeight:'bold'}}>Total</Text>
-       <Text style={{paddingHorizontal:115,fontSize:25,fontWeight:'bold'}}> ₹  {this.state.total}</Text>
+       <Text style={{paddingLeft:scale(25),fontSize:scale(25),fontWeight:'bold'}}>Total</Text>
+       <Text style={{paddingHorizontal:scale(100),fontSize:scale(25),fontWeight:'bold'}}> ₹  {this.state.total}</Text>
        </View>
-      
-        
       </View>
     );
   }
