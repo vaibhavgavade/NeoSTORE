@@ -14,7 +14,7 @@ constructor(){
 static navigationOptions =({navigation})=>({
    title:navigation.getParam('navTitle'),
     headerTitleStyle:{
-    fontSize:30,
+    fontSize:20,
    }
  });
      componentDidMount(){
@@ -43,9 +43,9 @@ static navigationOptions =({navigation})=>({
                 data={this.state.allData}
                 renderItem={({ item }) => (
                 <TouchableOpacity key={item.product_images} onPress={()=>this.props.navigation.navigate('pDetail',{productId:item.id,ProductTitle:item.name})}>
-                <View style={{flex:1,flexDirection:'row',margin:25}}>
+                <View style={{flex:1,flexDirection:'row',margin:scale(10)}}>
               <Image  source={{uri:item.product_images}} style={{height:scale(80), width:scale(120)}}/>
-             <View style={{flex:5,marginHorizontal:30}}>
+             <View style={{flex:5,marginHorizontal:15}}>
               <Text style={{fontSize:scale(15)}}>{item.name}</Text>
               <Text style={{fontSize:scale(15)}}>{item.producer}</Text>
                 <View style={{flexDirection:'row'}}>

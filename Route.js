@@ -93,6 +93,7 @@ const AppStack2 = createStackNavigator({
         },
         headerTintColor:'white'
     },
+    
   },
 
 
@@ -199,7 +200,7 @@ orderdetail:{
 editprofile:{
   screen:editprofile,
   navigationOptions:{ 
-    title:'My Profile',
+    title:'Edite Profile',
   
   headerStyle:{
       backgroundColor:'#fe3f3f'

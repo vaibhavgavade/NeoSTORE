@@ -4,10 +4,6 @@ import images from '../Constant/Images';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons'
 import {scale} from 'react-native-size-matters'
-
-
-
-
 export default class DrawerData extends Component{
 
     constructor(props){
@@ -29,8 +25,6 @@ export default class DrawerData extends Component{
                 {image:images.logout,title:'Logout',action:'firstPage'}
             ]
         };
-
-          
         this.storeData()
 }
 
@@ -63,16 +57,15 @@ export default class DrawerData extends Component{
            <View style={DrawerStyles.D}>
 
             <View style={{justifyContent:'center',alignItems:'center'}}>    
-                <Image style={{height:scale(100),width:scale(100),borderRadius:scale(50)}} source={images.profile}/>
+                <Image style={{height:scale(50),width:scale(50),borderRadius:scale(25)}} source={images.profile}/>
                 <View style={{flexDirection:'row'}}>
-                <Text style={{color:'black',fontSize:scale(20)}}>{this.state.fName}</Text>
-                <Text style={{color:'black',fontSize:scale(20),paddingLeft:scale(10)}}>{this.state.lName}</Text>
+                <Text style={{color:'black',fontSize:scale(11)}}>{this.state.fName}</Text>
+                <Text style={{color:'black',fontSize:scale(11),paddingLeft:scale(3)}}>{this.state.lName}</Text>
                 </View>
-                <Text style={{color:'black',fontSize:scale(15),fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
+                <Text style={{color:'black',fontSize:scale(11),fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
             </View>
             <FlatList
-
-            data={this.state.drawerInformation}
+             data={this.state.drawerInformation}
             renderItem={({item})=>
           
            <TouchableOpacity style={DrawerStyles.D1} key={item.image} 
@@ -98,7 +91,7 @@ export default class DrawerData extends Component{
 const DrawerStyles = StyleSheet.create({
     D:{
         flex:1,
-        marginVertical:75,
+        marginVertical:50,
         paddingLeft:5
     
   

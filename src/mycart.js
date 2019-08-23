@@ -6,6 +6,7 @@ import InputSpinner from 'react-native-input-spinner';
 import {Ionicons} from '@expo/vector-icons';
 import context from '../Context/context';
 import Api from '../Component/Api'
+import {scale} from 'react-native-size-matters';
 
 export default class myCart extends Component{
 constructor(props){
@@ -108,53 +109,63 @@ static navigationOptions =({navigation})=>({
                    data={this.state.datasource}
                    renderItem={({item})=>(
                     
-            <View style={{marginTop: 20,marginLeft:10}}>
+            <View style={{marginTop: 20,marginLeft:10,flexDirection:'row'}}>
                 
-                <Swipeout 
+                {/* <Swipeout 
                 right={swipeOutbtn} 
                 autoClose={true} 
                 backgroundColor="transparent"
                 onOpen={this.onopenSwipe(item.product.id)}
-                onClose={this.oncloseSwipe(item.product.id)}>
-                <Image source={{uri:item.product.product_images}} style={{width:100,height:100}}/>
-             <Text style={{fontSize:20}}>{item.product.name}</Text>
-                <View style={{flexDirection:'row'}}>
-                            <Text style={{fontStyle:'italic',fontSize:18}}>{item.product.product_category}</Text>
+                onClose={this.oncloseSwipe(item.product.id)}> */}
+                <Image source={{uri:item.product.product_images}} style={{width:scale(138),height:scale(110),marginLeft:scale(5),borderRadius:scale(5)}}/>
+                <View style={{flexDirection:'column',marginTop:scale(15)}}>
+                    <Text style={{fontSize:scale(15),marginLeft:7}}>{item.product.name}</Text>
+               
+                            <Text style={{fontStyle:'italic',fontSize:scale(12),marginLeft:10}}>{item.product.product_category}</Text>
+
                                   <InputSpinner 
                                   background="transparent"
                                   value={item.quantity} 
-                                  style={MycartStyles.spinner} 
                                   max={8} 
                                   min={1} 
-                                  colorMax={"#f04048"} 
-                                  colorMin={"#40c5f4"}
+                                //   colorMax={"#ff0000"} 
+                                //   colorMin={"#40e0d0"}
                                   onChange={(quantity)=> this.updatingCart(quantity,item.product.id)  }
-                                  background="transparent" />
-                                <Text style={{fontSize:15}}>₹{item.product.cost}</Text>
-                          <View style={{marginHorizontal:20}}>
+                                  background="transparent" 
+                                  color={'#2e8b57'}
+                                  height={scale(30)}
+                                  width={scale(100)}
+                                  style={{marginLeft:10}}
+                                 />
+                            <View style={{marginHorizontal:20,flexDirection:'row',marginTop:5}}>
+                          <Text style={{fontSize:scale(15)}}>₹:{item.product.cost}</Text>
                               <context.Consumer >
                                   {contextValue=>(
+                                      <View style={{marginHorizontal:30}}>
                                         <TouchableOpacity  onPress={()=>this.deleteCart(item.product.id,contextValue)}>
-                                        <Ionicons name="md-trash" color="red" size={30} />
+                                        <Ionicons name="md-trash" color="red" size={scale(20)} />
                                         </TouchableOpacity>
+                                        </View>
                                   )}
-                          
-                          </context.Consumer>
+                             </context.Consumer>
+                            
                           </View>
+                         
                  </View>
-                <View style={{ borderBottomColor:'#696969',borderBottomWidth:0.5,marginTop:5}}/>
-               </Swipeout>
-            </View>
-                      )}
-                   keyExtractor={(item, index) => index.toString()}/>
-                    <View style={{flex:0,bottom:0,position:'absolute',marginBottom:40,paddingLeft:30}}>
+                
+               {/* </Swipeout> */}
+             </View> 
+             
+             )}/>
+             
+                    <View style={{flex:0,position:'absolute',bottom:scale(10),justifyContent:'center',alignItems:'center'}}>
                        <View style={{flexDirection:'row'}}>
-                        <Text style={{fontSize:25,marginLeft:80}}>Total</Text>
-                        <Text style={{fontSize:25,paddingLeft:50}} >₹{this.state.total}</Text>
+                        <Text style={{fontSize:scale(25),marginLeft:scale(25)}}>Total</Text>
+                        <Text style={{fontSize:scale(25),marginLeft:scale(50)}} >₹:{this.state.total}</Text>
                         </View>  
-                        <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'red',height:51,width:300,marginLeft:30,borderRadius:5}}>
+                        <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'red',height:scale(51),width:scale(270),borderRadius:scale(5),marginLeft:scale(35)}}>
                         <TouchableOpacity onPress={()=>this.props.navigation.navigate('order')}>
-                        <Text style={{fontSize:30,color:'white'}}>Order Now</Text>
+                        <Text style={{fontSize:scale(30),color:'white'}}>Order Now</Text>
                          </TouchableOpacity>  
                          </View>
                         </View>
@@ -180,7 +191,7 @@ const MycartStyles = StyleSheet.create({
         flex:1,
      },
     uspinner:{
-            height:50,
-            width:150
+            height:10,
+            width:135
     }
 });

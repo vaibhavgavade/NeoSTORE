@@ -3,6 +3,7 @@ import { View, Text,TextInput,TouchableOpacity,Button,StyleSheet,AsyncStorage} f
 import Input from '../Component/Input';
 import Images from '../Constant/Images'
 import images from '../Constant/Images';
+import {scale} from 'react-native-size-matters'
 ;
 
 export default class orderPlace extends Component {
@@ -82,36 +83,39 @@ const addresstyles=StyleSheet.create({
     margin:30
   },
   textInput:{
-    borderWidth:1,
-    height:100,
-    width:300,
-    marginTop:20,
+    borderWidth:scale(1),
+    height:scale(100),
+    width:scale(250),
+    marginTop:scale(20),
     borderColor:'#000000ed',
-    marginHorizontal:15,
+    marginHorizontal:scale(28),
     alignContent:'center',
-    fontSize:20,
-    paddingLeft:10,
-    borderRadius:5
+    fontSize:scale(20),
+    paddingLeft:scale(10),
+    borderRadius:scale(5)
 
   },
   buttonStyles:{
     backgroundColor:'red',
-    height:51,
-    width:300, 
-    marginHorizontal:13 ,
-    borderRadius:5,
+    height:scale(51),
+    width:scale(250), 
+    marginHorizontal:scale(28) ,
+    borderRadius:scale(5),
     fontWeight:'200',
-    marginTop:20,
+    marginTop:scale(20),
     justifyContent:'center',
     alignItems:'center'
   },
   orderNowText:{
     alignContent:'center',
-    fontSize:30,
+    fontSize:scale(30),
     color:'white'
   },
   addressTxt:{
-    fontSize:40,
-    marginHorizontal:70
+    fontSize:scale(45),
+    marginHorizontal:scale(60),
+    marginTop:scale(20),
+    justifyContent:'center',
+    alignItems:'center'
   }
 })

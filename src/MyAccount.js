@@ -116,10 +116,11 @@ static navigationOptions =({navigation})=>({
         <InputData image={images.cellphone}/>
         <InputData image={images.dateBirth} /> */}
         <RoundButton onPress={()=>this.props.navigation.navigate('editprofile')}>EDIT PROFILE</RoundButton>
-       
+       <View style={{bottom:scale(0)}}>
         <TouchableOpacity style={myAccountstyles.ResetPassword} onPress={()=>this.ProfileBtnAction()}>
           <Text style={myAccountstyles.textStyles}>RESET PASSWORD</Text>
         </TouchableOpacity>
+        </View>
       </ScrollView>
         
        </KeyboardAvoidingView>

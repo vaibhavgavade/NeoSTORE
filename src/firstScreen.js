@@ -6,8 +6,8 @@ import Toptext from '../Component/Toptext';
 import RoundButton from '../Component/RoundButton';
 import {Ionicons} from '@expo/vector-icons';
 import Api from '../Component/Api';
-const {height,width}=Dimensions.get('window')
-import {scale,moderateScale,verticalScale} from 'react-native-size-matters'
+const {height,width}=Dimensions.get('window');
+import {scale,moderateScale,verticalScale} from 'react-native-size-matters';
 export default class firstScreen extends Component{
     constructor(){
         super();
@@ -74,7 +74,7 @@ LoginMethod() {
     }
 
         render(){
-            console.log("Height is"+height+" " +"width is"+width)
+            
             const{navigate}=this.props.navigation
          return(
           <View style={loginStyle.container}>   

@@ -141,7 +141,7 @@ addToCart(){
                 if(this.state.productImages.length>0){
                     return(
                        
-                            <Image style={{width:scale(257),height:scale(178), paddingTop:scale(20),paddingLeft:30}}  source ={{uri:this.state.bigImage}}/>
+                            <Image style={{width:scale(257),height:scale(160), paddingTop:scale(20),paddingLeft:30,borderRadius:5}}  source ={{uri:this.state.bigImage}}/>
                            
                     );
                 }
@@ -167,10 +167,10 @@ addToCart(){
  
       <View style={ProductStyle.P} >
          <View>
-             <Text style={{fontSize:scale(25), }}>{this.state.productDetailData.name}</Text>
-             <Text style={{fontSize:scale(22)}}>{this.productCategory()}</Text>
+             <Text style={{fontSize:25 }}>{this.state.productDetailData.name}</Text>
+             <Text style={{fontSize:22}}>{this.productCategory()}</Text>
              <View style={{flexDirection:'row'}}>
-             <Text style={{fontSize:scale(20)}}>{this.state.productDetailData.producer}</Text>
+             <Text style={{fontSize:20}}>{this.state.productDetailData.producer}</Text>
              <MyRating ratings = {this.state.productDetailData.rating}/>
              </View>
 
@@ -182,14 +182,14 @@ addToCart(){
 
  
 
-                <View style={{flex:1,flexDirection:'row',paddingTop:20}}>
+                <View style={{flex:1,flexDirection:'row',paddingTop:scale(8)}}>
                     <View style={{flex:1}}>
-             <Text style={{fontSize:scale(20),color:'red'}}>{this.state.productDetailData.cost}</Text>
+             <Text style={{fontSize:20,color:'red'}}>{this.state.productDetailData.cost}</Text>
              </View>
              {/* <View style={{flex:0.1}}> */}
                  <TouchableOpacity >
              {/* <Image source={images.shareImg}/> */}
-             <Ionicons name="md-share-alt" size={scale(30)} color="#008b8b"/>
+             <Ionicons name="md-share-alt" size={30} color="#008b8b"/>
              
           </TouchableOpacity>
           {/* </View> */}
@@ -202,8 +202,8 @@ addToCart(){
              {this.imageData()}
              </ScrollView >
           
-             <ScrollView style={{height:scale(50)}} >
-             <Text style={{fontSize:scale(20)}}>{this.state.productDetailData.description}</Text>
+             <ScrollView style={{height:50}} >
+             <Text style={{fontSize:20}}>{this.state.productDetailData.description}</Text>
              </ScrollView>
 
 
@@ -232,6 +232,7 @@ addToCart(){
            
         
               <Modal visible={this.state.modalVisible} animationType='slide' transparent={true} >
+                
               <TouchableWithoutFeedback onPressOut={()=>this._hideModal(false)}>
                   
                   <View style={{backgroundColor:'#a9a9a9',flex:1}}>
@@ -241,7 +242,7 @@ addToCart(){
                      
                       <View style={{padding:40}} >{this.bigimagedata()}</View> 
 
-                      <Text style={{fontSize:18,fontWeight:'bold', paddingHorizontal:100}}>Enter Quantity</Text>
+                      <Text style={{fontSize:scale(20),fontWeight:'bold', paddingHorizontal:scale(80)}}>Enter Quantity</Text>
                         <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}>
                       <TextInput style={ProductStyle.textinput}  onChangeText={(quantity)=>this.setState({quantity:quantity})}/>
                       </View>
@@ -251,7 +252,7 @@ addToCart(){
                                 {contextValue=>(
                                             <TouchableOpacity   onPress={()=>this.AddingCartItems(contextValue) }>
                           
-                                            <Text style={{fontSize:30,textAlign:'center',color:'white',fontWeight:'bold'}} >Submit</Text>
+                                            <Text style={{fontSize:scale(30),textAlign:'center',color:'white',fontWeight:'bold'}} >Submit</Text>
                                            
                                         </TouchableOpacity>
                                 )}
@@ -264,6 +265,7 @@ addToCart(){
                   
                   </View>
                   </TouchableWithoutFeedback>
+                 
               </Modal>
 
              
@@ -278,7 +280,7 @@ addToCart(){
                   <View style={ProductStyle.modal}>
                       <Text style={ProductStyle.modalatext} >{this.state.productDetailData.name}</Text>
                      
-                      <View style={{padding:40}} >{this.bigimagedata()}</View> 
+                      <View style={{padding:scale(40)}} >{this.bigimagedata()}</View> 
 
                       <View style={ProductStyle.ratingView}>{RatingBar}</View>
                         <View style={ProductStyle.buttonstyles}>
@@ -324,8 +326,8 @@ const ProductStyle = StyleSheet.create({
          alignItems:'center',
         backgroundColor:'white',
      
-        marginTop:150,
-        marginBottom: 150,
+        marginTop:scale(30),
+        marginBottom: scale(30),
           marginLeft:20,
          marginRight:20,
          borderWidth:2,
@@ -334,7 +336,7 @@ const ProductStyle = StyleSheet.create({
 
     },
     modalatext:{
-        fontSize:25,
+        fontSize:scale(18),
         justifyContent:'center',
        alignItems:'center',
        paddingHorizontal:40,
@@ -344,13 +346,13 @@ const ProductStyle = StyleSheet.create({
     },
     buttonstyles:{
         backgroundColor:'red',
-        height:60,
-        width:200,
+        height:scale(60),
+        width:scale(200),
         justifyContent:'center',
       
         alignSelf:'center',
-        borderRadius:10,
-        marginTop:20
+        borderRadius:scale(10),
+        marginTop:scale(20)
 
       
        
@@ -360,8 +362,8 @@ const ProductStyle = StyleSheet.create({
         borderWidth:3,
         borderRadius:10,
         borderColor: '#008000',
-        width:120,
-        height:50,
+        width:scale(120),
+        height:scale(50),
         textAlign:'center',
         fontSize:25
 
@@ -371,11 +373,11 @@ const ProductStyle = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         flexDirection:'row',
-        marginTop:10
+        marginTop:scale(5)
     },
     ratingImg:{
-        width:50,
-        height:50,
+        width:scale(25),
+        height:scale(25),
         resizeMode:'cover'
     }
 });
