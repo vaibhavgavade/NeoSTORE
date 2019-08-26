@@ -183,7 +183,8 @@ const myAccountstyles=StyleSheet.create({
           fontSize:scale(15),
           color:'white',
          alignItems:'center',
-         justifyContent:'center'
+         justifyContent:'center',
+         paddingTop: verticalScale(8)
       }
  
   

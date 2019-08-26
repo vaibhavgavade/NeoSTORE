@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text,Image,FlatList,TouchableOpacity,StyleSheet,AsyncStorage,SafeAreaView} from 'react-native';
 import Api from '../Component/Api';
-import {scale} from 'react-native-size-matters'
+import {scale} from 'react-native-size-matters';
+import {Shadow} from '../Component/Shadow';
 
 export default class OrderListing extends Component {
   constructor(props) {
@@ -47,6 +48,7 @@ export default class OrderListing extends Component {
         <FlatList
         data={this.state.datasource}
         renderItem={({item})=>(
+          <Shadow backgroundColor='#f5f5f5'>
           <View style={orderlistStyle.contaniner}>
             <TouchableOpacity onPress={()=>navigate('orderdetail',{orderId:item.id})} >
             <Text style={orderlistStyle.orderid}>Order ID:{item.id}</Text>
@@ -63,6 +65,7 @@ export default class OrderListing extends Component {
           
             </TouchableOpacity>
             </View>
+            </Shadow>
             )}
         />
        </SafeAreaView>

@@ -6,15 +6,17 @@ import Toptext from '../Component/Toptext';
 import RoundButton from '../Component/RoundButton';
 import {Ionicons} from '@expo/vector-icons';
 import Api from '../Component/Api';
-const {height,width}=Dimensions.get('window');
 import {scale,moderateScale,verticalScale} from 'react-native-size-matters';
+import {Indicator} from '../Component/Spinner';
+const {height,width}=Dimensions.get('window');
 export default class firstScreen extends Component{
     constructor(){
         super();
         this.state = {
             username:'',
             password:'',
-            datasource:[]
+            datasource:[],
+            isLoderLoading:false
         }
     }
      static navigationOptions = {
@@ -41,6 +43,9 @@ LoginMethod() {
          mySucessFullData(){
           const {navigate}=this.props.navigation
           if(this.state.datasource.status==200){
+              this.setState({
+                isLoderLoading:!this.state.isLoderLoading
+              })
              this.saveKey(
             "" + this.state.datasource.data.first_name,
             "" + this.state.datasource.data.last_name,
@@ -58,7 +63,14 @@ LoginMethod() {
           } else {
             alert("Something Went Wrong");
           }
-   }
+
+}
+
+showIndicator(){
+    if(this.state.isLoderLoading){
+        return <Indicator/>;
+    }
+}
     async saveKey(value1,value2,value3,value4){
         const fname=['@NeoStore_fname',value1];
         const lname=['@NeoStore_lname',value2];
@@ -82,14 +94,24 @@ LoginMethod() {
         <Toptext>NeoSTORE</Toptext>
         <Input image={images.username} placeholder='Username' onChangeText={(username)=>this.setState({username})}/>
         <Input image={images.password} placeholder='Password'onChangeText={(password)=>this.setState({password})}/>
-        <RoundButton onPress={()=>this.LoginMethod()} >Login</RoundButton>
+        <RoundButton 
+            onPress={()=>this.LoginMethod()}
+            disabled={this.state.isLoderLoading}
+             >Login</RoundButton>
         </View>
-        <TouchableOpacity style={loginStyle.passwordLbl} onPress={()=>navigate('lforot')}>
+        <TouchableOpacity 
+        style={loginStyle.passwordLbl} 
+        onPress={()=>navigate('lforot')}>
         <Text style={loginStyle.textPassword}>Forgot Password</Text>
         </TouchableOpacity>
+        {this.showIndicator()}
         <View style={loginStyle.Account}>
             <Text style={loginStyle.AccountText}>DONT HAVE AN ACCOUNT</Text>
-            <TouchableOpacity onPress={()=>navigate('thirdpage')} style={loginStyle.AccoutBtn} >
+            <TouchableOpacity 
+            onPress={()=>navigate('thirdpage')}
+             style={loginStyle.AccoutBtn}
+             disabled={this.state.isLoderLoading}
+              >
                 {/* <Image  source={images.Account}/> */}
                 <Ionicons name="md-arrow-round-forward" size={scale(30)} color="white" />
             </TouchableOpacity>

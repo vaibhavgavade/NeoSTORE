@@ -8,7 +8,7 @@ const Input = ({image ,placeHolder,onChangeText}) =>(
 
     <View style={inputStyles.A}>
     <View style={inputStyles.A1}>
-     <Image source={ image}/>
+     <Image source={ image} resizeMode='stretch'/>
    </View>
    <View style={inputStyles.A2}>
    <TextInput style={inputStyles.A3} placeholder={placeHolder }  onChangeText={onChangeText}/>  
@@ -16,7 +16,7 @@ const Input = ({image ,placeHolder,onChangeText}) =>(
 </View>
 ) 
 
-export  default Input;
+export default Input;
 
 
 const inputStyles = StyleSheet.create({
@@ -36,6 +36,7 @@ A1: {
         flex:1,
         justifyContent: "center",
         alignItems: "center",
+       
       
     },
     

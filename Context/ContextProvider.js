@@ -1,54 +1,46 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import context from '../Context/context';
-
-
+import Cartcontext from '../Context/context';
+import Api from '../Component/Api';
 export default class ContextProvider extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-        count:'',
-      
+      count:null,
+      email: null,
+      name: null
     };
     this.getData()
   }
+ 
 
-   async getData(){
+    getData(){
     
-        console.log("getdataApi is called")
-    const token =  await AsyncStorage.getItem('@NeoStore_at')
-    console.log('Acess token is:'+token)
-
-    const fetchData={
-             method:'GET',
-             headers:{
-            access_token:token,
-        'Content-Type':'application/x-www-form-urlencoded'
-        }
-     };
-
-return fetch('http://staging.php-dev.in:8844/trainingapp/api/users/getUserData',fetchData)
-    .then((response)=>response.json())
-    .then((responseJson)=>{
-        this.setState({
-            count:responseJson.data.total_carts
+      const method = 'GET';
+      const url='users/getUserData';
+      return Api(url,method,null)
+      .then(responseJson=>{
+        console.log("Done")
+        console.log(responseJson.data.total_carts);
         
-         })
-         console.log("cart data is:"+this.state.count)
-    })
+      this.setState({
+        count:responseJson.data.total_carts
+      })
+      }).catch(err=>{
+        console.error(err)
+        })
   }
 
   render() {
     return (
-      <context.Provider
-      value={{
-          state:this.state,
+      <Cartcontext.Provider
+        value={{
+          state: this.state,
           getData:this.getData
-        }}>
-         
-    {this.props.children}
-
-    </context.Provider>
+        }}
+      >
+        {this.props.children}
+      </Cartcontext.Provider>
     );
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text,FlatList,Image,AsyncStorage} from 'react-native';
 import Api from '../Component/Api';
 import {scale,verticalScale,moderateScale} from 'react-native-size-matters';
+import  {Shadow} from '../Component/Shadow'
 export default class OrderDetail extends Component {
 constructor(props) {
     super(props);
@@ -40,6 +41,7 @@ componentDidMount(){
    <FlatList
       data={this.state.datasource}
        renderItem={({item})=>(
+        <Shadow backgroundColor='#f5f5f5'>
         <View style={{flexDirection:'row',marginTop:scale(20)}}>
          <Image source={{uri:item.prod_image}} style={{height:scale(80),width:scale(120)}}/>
          <View style={{flexDirection:'column',marginLeft:20}}>
@@ -47,10 +49,11 @@ componentDidMount(){
           <Text style={{fontStyle:'italic',color:'#808080',fontSize:scale(15)}}>({item.prod_cat_name})</Text>
           <View style={{flexDirection:'row'}}>
            <Text style={{fontSize:scale(20)}}>QTY : {item.quantity}</Text>
-         <Text style={{paddingHorizontal:scale(50),fontSize:scale(20)}}> {item.total}</Text>
+         <Text style={{paddingHorizontal:scale(30),fontSize:scale(20)}}> {item.total}</Text>
          </View>
          </View>
          </View>
+         </Shadow>
        )}/>
       
       </View>

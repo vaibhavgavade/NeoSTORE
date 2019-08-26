@@ -3,7 +3,8 @@ import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity} from 'react-native
 import MyRating from '../Component/MyRating';
 import Api from '../Component/Api';
 import {scale} from 'react-native-size-matters';
-
+import {Shadow} from '../Component/Shadow';
+import MyConsumer from '../Context/MyConsumerComponent';
 export default class Tables extends Component{
 constructor(){
         super();
@@ -43,17 +44,21 @@ static navigationOptions =({navigation})=>({
                 data={this.state.allData}
                 renderItem={({ item }) => (
                 <TouchableOpacity key={item.product_images} onPress={()=>this.props.navigation.navigate('pDetail',{productId:item.id,ProductTitle:item.name})}>
-                <View style={{flex:1,flexDirection:'row',margin:scale(10)}}>
-              <Image  source={{uri:item.product_images}} style={{height:scale(80), width:scale(120)}}/>
+                  <Shadow backgroundColor='#f5f5f5'>
+                <View style={{flex:1,flexDirection:'row',margin:scale(5)}}>
+              <Image  source={{uri:item.product_images}} style={{height:scale(70), width:scale(90)}}/>
              <View style={{flex:5,marginHorizontal:15}}>
               <Text style={{fontSize:scale(15)}}>{item.name}</Text>
+                   
               <Text style={{fontSize:scale(15)}}>{item.producer}</Text>
+              
                 <View style={{flexDirection:'row'}}>
               <Text style={{fontSize:scale(25),color:'red',paddingTop:10}}>Rs. {item.cost}</Text>
               <MyRating ratings={item.rating} />
               </View>
               </View>
              </View>
+             </Shadow>
               </TouchableOpacity>
                 )}
                 keyExtractor={(item, index) => index.toString()}

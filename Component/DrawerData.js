@@ -3,7 +3,8 @@ import {View,Text,StyleSheet,Image,AsyncStorage} from 'react-native';
 import images from '../Constant/Images';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons'
-import {scale} from 'react-native-size-matters'
+import {scale} from 'react-native-size-matters';
+import MyConsumer from '../Context/MyConsumerComponent';
 export default class DrawerData extends Component{
 
     constructor(props){
@@ -57,12 +58,13 @@ export default class DrawerData extends Component{
            <View style={DrawerStyles.D}>
 
             <View style={{justifyContent:'center',alignItems:'center'}}>    
-                <Image style={{height:scale(50),width:scale(50),borderRadius:scale(25)}} source={images.profile}/>
+                <Image style={{height:scale(70),width:scale(70),borderRadius:scale(35)}} source={images.profile}/>
                 <View style={{flexDirection:'row'}}>
-                <Text style={{color:'black',fontSize:scale(11)}}>{this.state.fName}</Text>
-                <Text style={{color:'black',fontSize:scale(11),paddingLeft:scale(3)}}>{this.state.lName}</Text>
+                <Text style={{color:'black',fontSize:scale(15)}}>{this.state.fName}</Text>
+                <Text style={{color:'black',fontSize:scale(15),paddingLeft:scale(3)}}>{this.state.lName}</Text>
                 </View>
-                <Text style={{color:'black',fontSize:scale(11),fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
+                <Text style={{color:'black',fontSize:scale(15),fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
+                <MyConsumer/>
             </View>
             <FlatList
              data={this.state.drawerInformation}
@@ -75,6 +77,7 @@ export default class DrawerData extends Component{
              
                <Image style={{height:scale(35),width:scale(35)}} source={item.image}/>
               <Text style={DrawerStyles.textData}>{item.title}</Text>
+                
               <Text style={{marginHorizontal:10}}>{item.number}</Text>
     
              
@@ -102,7 +105,7 @@ const DrawerStyles = StyleSheet.create({
         // alignItems:'center',
         flexDirection:'row',
        paddingLeft:30,
-       marginTop:25
+       marginTop:40
 
     },
     textData:{

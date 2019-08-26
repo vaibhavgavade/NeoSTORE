@@ -6,6 +6,7 @@ import {Ionicons} from '@expo/vector-icons';
 import context from '../Context/context';
 import Api from '../Component/Api';
 import {scale} from 'react-native-size-matters';
+import {Shadow} from '../Component/Shadow';
 //import share from 'react-native-share';
 
 
@@ -164,8 +165,10 @@ addToCart(){
       
     return (
         
- 
+       
       <View style={ProductStyle.P} >
+         
+        <Shadow backgroundColor='#f5f5f5'>     
          <View>
              <Text style={{fontSize:25 }}>{this.state.productDetailData.name}</Text>
              <Text style={{fontSize:22}}>{this.productCategory()}</Text>
@@ -173,15 +176,9 @@ addToCart(){
              <Text style={{fontSize:20}}>{this.state.productDetailData.producer}</Text>
              <MyRating ratings = {this.state.productDetailData.rating}/>
              </View>
-
-              
-             </View>
-
-          
-
-
- 
-
+          </View>
+          </Shadow>   
+                
                 <View style={{flex:1,flexDirection:'row',paddingTop:scale(8)}}>
                     <View style={{flex:1}}>
              <Text style={{fontSize:20,color:'red'}}>{this.state.productDetailData.cost}</Text>
@@ -194,20 +191,22 @@ addToCart(){
           </TouchableOpacity>
           {/* </View> */}
           </View>
+         
                         
-
-          <View style={{}}>{this.bigimagedata()}</View>
-
+           
+           <View style={{}}>{this.bigimagedata()}</View>
+        
+            
             <ScrollView style={{paddingTop:5}} horizontal showsHorizontalScrollIndicator={true} >
              {this.imageData()}
              </ScrollView >
-          
+            
              <ScrollView style={{height:50}} >
              <Text style={{fontSize:20}}>{this.state.productDetailData.description}</Text>
              </ScrollView>
-
-
-
+           
+         
+            
 
 
 
@@ -229,7 +228,7 @@ addToCart(){
              </View>
          
              
-           
+            
         
               <Modal visible={this.state.modalVisible} animationType='slide' transparent={true} >
                 

@@ -4,8 +4,10 @@ import images from '../Constant/Images';
 import {ImageCorousel} from '../Component/ImageCorousel';
 import {Ionicons} from '@expo/vector-icons';
 import {scale,verticalScale,moderateScale} from 'react-native-size-matters';
-const {width,height}=Dimensions.get('window');
 import {widthPercentageToDP as wp, heightPercentageToDP as hp, widthPercentageToDP, heightPercentageToDP} from 'react-native-responsive-screen';
+import Cartcontext from '../Context/context'
+const {width,height}=Dimensions.get('window');
+
 
 
 export default class ThirdScreen extends Component{
@@ -45,12 +47,13 @@ render(){
     return(
       <View style={{flex:1,flexDirection:'column'}}>
   <View style={{flex:0.4}}>
+ 
       <ImageCorousel image={this.state.sliderData}/>
       </View>
-          <View style={{flex:0.5,justifyContent:'center',alignItems:'center',marginTop:15}}>
+          <View style={{flex:0.5,justifyContent:'center',alignItems:'center',marginTop:10,bottom:0}}>
         <FlatList data={this.state.gridData}  renderItem={({item})=>(
     <TouchableOpacity style={{padding:scale(9)}} key={item.key} onPress={()=>this.props.navigation.navigate('Tables',{id:item.values,navTitle:item.title})}>
-       <Image style={{width:scale(100),height:scale(90),borderRadius:15}} source={item.key}/>
+       <Image style={{width:width/2.3,height:height/5.0,borderRadius:scale(8)}} source={item.key} resizeMode='stretch'/>
     </TouchableOpacity> 
      )}
            numColumns={2}

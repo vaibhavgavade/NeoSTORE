@@ -1,3 +1,3 @@
 import React from 'react'
-const context = React.createContext()
-export default context
+const Cartcontext = React.createContext()
+export default Cartcontext;

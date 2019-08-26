@@ -4,9 +4,10 @@ import Swipeout from 'react-native-swipeout';
 import images from  '../Constant/Images';
 import InputSpinner from 'react-native-input-spinner';
 import {Ionicons} from '@expo/vector-icons';
-import context from '../Context/context';
-import Api from '../Component/Api'
+import Cartcontext from '../Context/ContextProvider';
+import Api from '../Component/Api';
 import {scale} from 'react-native-size-matters';
+import {Shadow} from '../Component/Shadow';
 
 export default class myCart extends Component{
 constructor(props){
@@ -63,6 +64,7 @@ static navigationOptions =({navigation})=>({
                     console.log("delete cart here")
                     console.log(responseJson)
                     this.fetchApiData()
+                    Ab.getData()
             })
             .catch(err=>{
                 console.error(err)
@@ -108,7 +110,7 @@ static navigationOptions =({navigation})=>({
                 <FlatList
                    data={this.state.datasource}
                    renderItem={({item})=>(
-                    
+             <Shadow backgroundColor='#f5f5f5'>   
             <View style={{marginTop: 20,marginLeft:10,flexDirection:'row'}}>
                 
                 {/* <Swipeout 
@@ -139,15 +141,15 @@ static navigationOptions =({navigation})=>({
                                  />
                             <View style={{marginHorizontal:20,flexDirection:'row',marginTop:5}}>
                           <Text style={{fontSize:scale(15)}}>₹:{item.product.cost}</Text>
-                              <context.Consumer >
-                                  {contextValue=>(
+                              <Cartcontext.Consumer >
+                                  {contextxitem=>(
                                       <View style={{marginHorizontal:30}}>
-                                        <TouchableOpacity  onPress={()=>this.deleteCart(item.product.id,contextValue)}>
+                                        <TouchableOpacity  onPress={()=>this.deleteCart(item.product.id,contextitem)}>
                                         <Ionicons name="md-trash" color="red" size={scale(20)} />
                                         </TouchableOpacity>
                                         </View>
                                   )}
-                             </context.Consumer>
+                             </Cartcontext.Consumer>
                             
                           </View>
                          
@@ -155,10 +157,11 @@ static navigationOptions =({navigation})=>({
                 
                {/* </Swipeout> */}
              </View> 
+             </Shadow>    
              
              )}/>
              
-                    <View style={{flex:0,position:'absolute',bottom:scale(10),justifyContent:'center',alignItems:'center'}}>
+                    <View style={{flex:0,position:'absolute',bottom:scale(20),justifyContent:'center',alignItems:'center'}}>
                        <View style={{flexDirection:'row'}}>
                         <Text style={{fontSize:scale(25),marginLeft:scale(25)}}>Total</Text>
                         <Text style={{fontSize:scale(25),marginLeft:scale(50)}} >₹:{this.state.total}</Text>
