@@ -1,46 +1,54 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import Cartcontext from '../Context/context';
 import Api from '../Component/Api';
+import CartContext from '../Context/context'
+
+
 export default class ContextProvider extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       count:null,
-      email: null,
-      name: null
+      email:null,
+      name:null
     };
-    this.getData()
+    this.getUpdate()
   }
- 
 
-    getData(){
-    
-      const method = 'GET';
+  getUpdate(){
+      const method='GET';
       const url='users/getUserData';
       return Api(url,method,null)
       .then(responseJson=>{
-        console.log("Done")
-        console.log(responseJson.data.total_carts);
-        
-      this.setState({
-        count:responseJson.data.total_carts
+        if(responseJson.status==200){
+          console.log(responseJson.data.total_carts)
+          this.setState({
+            count: responseJson.data.total_carts,
+            email: responseJson.data.user_data.email,
+            name:
+              '' +
+              responseJson.data.user_data.first_name +
+              ' ' +
+              responseJson.data.user_data.last_name
+          });
+          console.log('test' + this.state.count);
+        }
       })
-      }).catch(err=>{
-        console.error(err)
-        })
-  }
-
+    .catch(error => {
+        console.error(error);
+      });
+    }
   render() {
     return (
-      <Cartcontext.Provider
-        value={{
+        <CartContext.Provider value={{
           state: this.state,
-          getData:this.getData
-        }}
-      >
-        {this.props.children}
-      </Cartcontext.Provider>
+          onPlus: this.getUpdate,
+          onMinus: this.getUpdate,
+          getUpdate: this.getUpdate
+        }}>
+          {this.props.children}
+          
+        </CartContext.Provider>
     );
   }
 }

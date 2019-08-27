@@ -9,7 +9,8 @@ constructor(props) {
     this.state = {
       datasource:[],
       total:'',
-      access_token:''
+      access_token:'',
+      address:''
      }
   }
 componentDidMount(){
@@ -25,7 +26,8 @@ componentDidMount(){
         console.log(responseJson)
         this.setState({
           datasource:responseJson.data.order_details,
-          total:responseJson.data.cost
+          total:responseJson.data.cost,
+          address:responseJson.data.address
         })
       }).catch(err=>{
         console.error(err)
@@ -34,15 +36,17 @@ componentDidMount(){
   render() {
     return (
       <View style={{marginTop:5,marginLeft:5,}}>
-         <View style={{flexDirection:'row',marginTop:40}}>
+         <View style={{flexDirection:'row',marginTop:20}}>
        <Text style={{paddingLeft:scale(25),fontSize:scale(25),fontWeight:'bold'}}>Total</Text>
-       <Text style={{paddingHorizontal:scale(100),fontSize:scale(25),fontWeight:'bold'}}> ₹  {this.state.total}</Text>
+       <Text style={{paddingHorizontal:scale(20),fontSize:scale(25),fontWeight:'bold'}}> ₹:{this.state.total}</Text>
+       
        </View>
+       <Text style={{fontSize:scale(20),marginLeft:25}}>Shipping Address:{this.state.address}</Text>
    <FlatList
       data={this.state.datasource}
        renderItem={({item})=>(
         <Shadow backgroundColor='#f5f5f5'>
-        <View style={{flexDirection:'row',marginTop:scale(20)}}>
+        <View style={{flexDirection:'row',marginTop:scale(10)}}>
          <Image source={{uri:item.prod_image}} style={{height:scale(80),width:scale(120)}}/>
          <View style={{flexDirection:'column',marginLeft:20}}>
          <Text style={{fontSize:scale(18)}}>{item.prod_name}</Text>

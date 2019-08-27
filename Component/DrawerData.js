@@ -4,7 +4,9 @@ import images from '../Constant/Images';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons'
 import {scale} from 'react-native-size-matters';
-import MyConsumer from '../Context/MyConsumerComponent';
+import CartContext from '../Context/context';
+import MyConsumer from '../Component/MyConsumerComponent';
+
 export default class DrawerData extends Component{
 
     constructor(props){
@@ -16,17 +18,25 @@ export default class DrawerData extends Component{
                 lName:'',
 
                 drawerInformation:[
-                {image:images.purchase, title:'My Carts',action:'cart',number:'0'},
-                {image:images.tables,title:'Tables',action:'Tables',id:'1'},
-                {image:images.chair,title:'Chairs',action:'Tables',id:'2'},
-                {image:images.sofa,title:'Sofas',action:'Tables',id:'3'},
-                {image:images.cupboard,title:'Cupbaords',action:'Tables',id:'4'},
-                {image:images.account,title:'My Account',action:'Account'},
-                {image:images.order,title:'My Orders',action:'orderList'},
-                {image:images.logout,title:'Logout',action:'firstPage'}
+                {image:images.purchase, title:'My Carts',action:'cart',cartCount:'1'},
+                {image:images.tables,title:'Tables',action:'Tables',id:'1',cartCount:'0'},
+                {image:images.chair,title:'Chairs',action:'Tables',id:'2',cartCount:'0'},
+                {image:images.sofa,title:'Sofas',action:'Tables',id:'3',cartCount:'0'},
+                {image:images.cupboard,title:'Cupbaords',action:'Tables',id:'4',cartCount:'0'},
+                {image:images.account,title:'My Account',action:'Account',cartCount:'0'},
+                {image:images.order,title:'My Orders',action:'orderList',cartCount:'='},
+                {image:images.logout,title:'Logout',action:'firstPage',cartCount:'0'}
             ]
         };
         this.storeData()
+}
+
+myCartCount(value){
+    if (value==1){
+        return(
+            <MyConsumer/>
+        )
+    }
 }
 
     async storeData(){
@@ -53,8 +63,6 @@ export default class DrawerData extends Component{
         
     return(
 
-           
-
            <View style={DrawerStyles.D}>
 
             <View style={{justifyContent:'center',alignItems:'center'}}>    
@@ -64,7 +72,15 @@ export default class DrawerData extends Component{
                 <Text style={{color:'black',fontSize:scale(15),paddingLeft:scale(3)}}>{this.state.lName}</Text>
                 </View>
                 <Text style={{color:'black',fontSize:scale(15),fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
-                <MyConsumer/>
+               <CartContext.Consumer>
+                   {contextValue=>{
+                       return(
+                           <View>
+                           <Text style={{fontSize:20}}> Carts:{contextValue.state.count}</Text>
+                           </View>
+                       )
+                   }}
+               </CartContext.Consumer>
             </View>
             <FlatList
              data={this.state.drawerInformation}
@@ -78,7 +94,8 @@ export default class DrawerData extends Component{
                <Image style={{height:scale(35),width:scale(35)}} source={item.image}/>
               <Text style={DrawerStyles.textData}>{item.title}</Text>
                 
-              <Text style={{marginHorizontal:10}}>{item.number}</Text>
+              {/* <Text style={{marginHorizontal:10}}>{item.}</Text> */}
+              <View style={{backgroundColor:'black'}}>{this.myCartCount(item.cartCount)}</View>
     
              
            </TouchableOpacity>

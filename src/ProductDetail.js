@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text ,StyleSheet,Image,ScrollView,TouchableOpacity,Modal,TextInput,KeyboardAvoidingView,TouchableWithoutFeedback} from 'react-native';
+import { View, Text ,StyleSheet,Image,ScrollView,TouchableOpacity,Modal,TextInput,KeyboardAvoidingView,TouchableWithoutFeedback,Dimensions} from 'react-native';
 import images from '../Constant/Images';
 import MyRating from '../Component/MyRating'
 import {Ionicons} from '@expo/vector-icons';
-import context from '../Context/context';
+import CartContext from '../Context/context'
 import Api from '../Component/Api';
-import {scale} from 'react-native-size-matters';
-import {Shadow} from '../Component/Shadow';
+import {scale,verticalScale} from 'react-native-size-matters';
+import ModalShadow from '../Component/ModalShadow';
+const {height,width}=Dimensions.get('window');
+
 //import share from 'react-native-share';
 
 
@@ -60,15 +62,14 @@ export default class ProductDetail extends Component {
     this.setState({defaultRating:rate})
 }
 
+// AddingCartItems(){
 
-AddingCartItems(Ab){
+//     {this.addToCart()}
+//     {this.setState({modalVisible:!this.state.modalVisible})}
 
-    {this.addToCart()}
-    {this.setState({modalVisible:!this.state.modalVisible})}
-    // Ab.getData()
-}
+// }
   
-addToCart(){
+addToCart(contextValue){
     const {navigation}=this.props
     const quantity = this.state.quantity;
     const product_id = navigation.getParam('productId')
@@ -78,7 +79,13 @@ addToCart(){
         const body = `product_id=${product_id}&quantity=${quantity}`
         return Api(url,method,body)
         .then(responseJson=>{
+           
             console.log("Add cart data is:"+responseJson)
+            this.setState({
+                modalVisible:!this.state.modalVisible
+            })
+        
+                contextValue.state.count=responseJson.total_carts
         })
         .catch(err=>{
             console.error(err)
@@ -133,7 +140,7 @@ addToCart(){
               return this.state.productImages.map((item)=>{
                return(
                         <TouchableOpacity  key={item.image} onpress={()=>this.setState({bigImage:item.image})}>
-                <Image style={{width:scale(50),height:scale(50),borderWidth:1,marginLeft:10, marginTop:10}} source={{uri:item.image}}/>
+                <Image style={{width:scale(80),height:scale(60),borderWidth:1,marginLeft:10, marginTop:10}} source={{uri:item.image}}/>
                 </TouchableOpacity>
                 );
               })
@@ -150,6 +157,8 @@ addToCart(){
                 
             
   render() {
+    console.log("Height is+"+height+"Width is:"+width)
+
             console.log('product detail data is:',this.state.productDetailData)
             let RatingBar = []
             for(i=1;i<=this.state.maxRating;i++){
@@ -157,18 +166,14 @@ addToCart(){
                     <TouchableOpacity activeOpacity={0.7} key={i} onPress={this.updateRating.bind(this,i)}>
                         <Image style={ProductStyle.ratingImg} source={i<=this.state.defaultRating?images.starCheck:images.starUncheck}/>
                      </TouchableOpacity>
-        
-                )
-        
-            }
+        )
+    }
 
-      
-    return (
-        
-       
-      <View style={ProductStyle.P} >
+      return (
+            
+            <View style={ProductStyle.P} >
          
-        <Shadow backgroundColor='#f5f5f5'>     
+ 
          <View>
              <Text style={{fontSize:25 }}>{this.state.productDetailData.name}</Text>
              <Text style={{fontSize:22}}>{this.productCategory()}</Text>
@@ -177,7 +182,7 @@ addToCart(){
              <MyRating ratings = {this.state.productDetailData.rating}/>
              </View>
           </View>
-          </Shadow>   
+        
                 
                 <View style={{flex:1,flexDirection:'row',paddingTop:scale(8)}}>
                     <View style={{flex:1}}>
@@ -229,38 +234,46 @@ addToCart(){
          
              
             
-        
-              <Modal visible={this.state.modalVisible} animationType='slide' transparent={true} >
+            
+              <Modal visible={this.state.modalVisible} animationType='slide' transparent={true} onBackdropPress={()=>this._hideModal(false)}>
                 
               <TouchableWithoutFeedback onPressOut={()=>this._hideModal(false)}>
                   
-                  <View style={{backgroundColor:'#a9a9a9',flex:1}}>
-                 
+                  <View style={{backgroundColor:'transparent',flex:1}}>
+                    
                   <View style={ProductStyle.modal}>
                       <Text style={ProductStyle.modalatext} >{this.state.productDetailData.name}</Text>
                      
-                      <View style={{padding:40}} >{this.bigimagedata()}</View> 
+                      <View style={{padding:scale(40)}} >{this.bigimagedata()}</View> 
 
-                      <Text style={{fontSize:scale(20),fontWeight:'bold', paddingHorizontal:scale(80)}}>Enter Quantity</Text>
-                        <View style={{justifyContent:'center',alignItems:'center',paddingVertical:10}}>
+                      <Text style={{fontSize:scale(20),fontWeight:'bold', paddingHorizontal:scale(50)}}>Enter Quantity</Text>
+                        <View style={{justifyContent:'center',alignItems:'center',paddingVertical:scale(10)}}>
                       <TextInput style={ProductStyle.textinput}  onChangeText={(quantity)=>this.setState({quantity:quantity})}/>
                       </View>
                      
                         <View style={ProductStyle.buttonstyles}>
-                            <context.Consumer >
-                                {contextValue=>(
-                                            <TouchableOpacity   onPress={()=>this.AddingCartItems(contextValue) }>
+                            
+                                
+                                          
+                               
+                <CartContext.Consumer>
+                   {contextValue=>{
+                       return(
+                        <TouchableOpacity   onPress={()=>this.addToCart(contextValue) }>
                           
-                                            <Text style={{fontSize:scale(30),textAlign:'center',color:'white',fontWeight:'bold'}} >Submit</Text>
-                                           
-                                        </TouchableOpacity>
-                                )}
-                      
-                      </context.Consumer>
+                        <Text style={{fontSize:scale(30),textAlign:'center',color:'white',fontWeight:'bold'}} >Submit</Text>
+                       
+                    </TouchableOpacity>
+                       )
+                   }}
+               </CartContext.Consumer>
+                     
                      
                       </View>
                      
                   </View>
+          
+               
                   
                   </View>
                   </TouchableWithoutFeedback>
@@ -272,10 +285,11 @@ addToCart(){
         
 
 
-
-              <Modal visible={this.state.rateModel} animationType='slide' transparent={true}>
+               
+              <Modal visible={this.state.rateModel} animationType='slide' transparent={true} onBackdropPress={()=>this._rateModal(false)}>
               <TouchableWithoutFeedback onPressOut={()=>this._rateModal(false)}>
-                  <View style={{backgroundColor:'#a9a9a9',flex:1}}>
+                  <View style={{backgroundColor:'transparent',flex:1}}>
+                      <ScrollView>
                   <View style={ProductStyle.modal}>
                       <Text style={ProductStyle.modalatext} >{this.state.productDetailData.name}</Text>
                      
@@ -293,9 +307,11 @@ addToCart(){
                       </View>
                      
                   </View>
+                  </ScrollView>
                   </View>
                   </TouchableWithoutFeedback>
               </Modal>
+           
            
 
 
@@ -321,37 +337,37 @@ const ProductStyle = StyleSheet.create({
 
     modal:{
         flex:1,
-         justifyContent:'center',
-         alignItems:'center',
+        justifyContent:'center',
+        alignItems:'center',
         backgroundColor:'white',
-     
-        marginTop:scale(30),
-        marginBottom: scale(30),
-          marginLeft:20,
-         marginRight:20,
-         borderWidth:2,
-         borderColor:'#2f4f4f',
-         borderRadius:10
-
+         marginTop:scale(150),
+        //  marginBottom: scale(10),
+        // marginLeft:scale(20),
+        // marginRight:scale(30),
+        borderWidth:scale(2),
+        borderColor:'#2f4f4f',
+        // borderRadius:scale(10),
+        
+        // width:width
     },
     modalatext:{
         fontSize:scale(18),
         justifyContent:'center',
        alignItems:'center',
-       paddingHorizontal:40,
-       marginTop:10,
+       paddingHorizontal:scale(40),
+       marginTop:scale(10),
     
       
     },
     buttonstyles:{
         backgroundColor:'red',
         height:scale(60),
-        width:scale(200),
+        width:scale(190),
         justifyContent:'center',
       
         alignSelf:'center',
         borderRadius:scale(10),
-        marginTop:scale(20)
+        marginTop:scale(10)
 
       
        
@@ -375,8 +391,8 @@ const ProductStyle = StyleSheet.create({
         marginTop:scale(5)
     },
     ratingImg:{
-        width:scale(25),
-        height:scale(25),
+        width:scale(30),
+        height:scale(30),
         resizeMode:'cover'
     }
 });

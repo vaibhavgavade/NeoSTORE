@@ -4,10 +4,11 @@ import Swipeout from 'react-native-swipeout';
 import images from  '../Constant/Images';
 import InputSpinner from 'react-native-input-spinner';
 import {Ionicons} from '@expo/vector-icons';
-import Cartcontext from '../Context/ContextProvider';
+import CartContext from '../Context/context';
 import Api from '../Component/Api';
 import {scale} from 'react-native-size-matters';
 import {Shadow} from '../Component/Shadow';
+
 
 export default class myCart extends Component{
 constructor(props){
@@ -53,7 +54,7 @@ static navigationOptions =({navigation})=>({
             console.error(err)
         })
 }
-         deleteCart(id,Ab){
+         deleteCart(id,contextValue){
          console.log('Delete Pressed'+this.state.myid);
          const product_id = id;
             const method = 'POST'
@@ -64,7 +65,8 @@ static navigationOptions =({navigation})=>({
                     console.log("delete cart here")
                     console.log(responseJson)
                     this.fetchApiData()
-                    Ab.getData()
+                    
+                    contextValue.state.count=responseJson.total_carts;
             })
             .catch(err=>{
                 console.error(err)
@@ -141,17 +143,27 @@ static navigationOptions =({navigation})=>({
                                  />
                             <View style={{marginHorizontal:20,flexDirection:'row',marginTop:5}}>
                           <Text style={{fontSize:scale(15)}}>₹:{item.product.cost}</Text>
-                              <Cartcontext.Consumer >
-                                  {contextxitem=>(
-                                      <View style={{marginHorizontal:30}}>
-                                        <TouchableOpacity  onPress={()=>this.deleteCart(item.product.id,contextitem)}>
-                                        <Ionicons name="md-trash" color="red" size={scale(20)} />
-                                        </TouchableOpacity>
-                                        </View>
-                                  )}
-                             </Cartcontext.Consumer>
-                            
-                          </View>
+                            <View style={{marginHorizontal:30}}>
+                                        
+                                       
+
+                                                       
+                                           
+                <CartContext.Consumer>
+                   {contextValue=>{
+                       return(
+                        <TouchableOpacity onPress={()=>this.deleteCart(item.product.id,contextValue)}>
+                                                   
+                        <Ionicons name="md-trash" color="red" size={scale(20)} />
+                        </TouchableOpacity>
+                       )
+                   }}
+               </CartContext.Consumer> 
+                                             
+                                        
+                                      
+                                       </View>
+                                </View>
                          
                  </View>
                 

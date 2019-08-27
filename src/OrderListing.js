@@ -25,7 +25,8 @@ export default class OrderListing extends Component {
       console.log("Done")
       console.log("order listing data is:"+responseJson)
       this.setState({
-          datasource:responseJson.data},
+          datasource:responseJson.data.reverse()
+        },
           function() {} )
     }).catch(err=>{
         console.error(err)
