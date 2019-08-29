@@ -13,7 +13,7 @@ class MyConsumer extends Component {
                    {contextValue=>{
                        return(
                            <View>
-                           <Text style={{fontSize:20}}>{contextValue.state.count}</Text>
+                           <Text style={Styles.textAllStyles}>{contextValue.state.count}</Text>
                            </View>
                        )
                    }}
@@ -26,15 +26,16 @@ class MyConsumer extends Component {
 export default MyConsumer;
 
 const Styles = StyleSheet.create({
-    container:{
-        fontSize:18,
-        paddingHorizontal:10,
-        paddingVertical:3
-    },
     ViewData:{
-            height:30,
-            width:30,
-            borderRadius:20,
-            backgroundColor:'white'
-    }
+        height:33,
+        width:33,
+        borderRadius:20,
+        backgroundColor:'red'
+},
+textAllStyles:{
+    fontSize:18,
+    paddingHorizontal:10,
+    paddingTop:5
+
+},
 })

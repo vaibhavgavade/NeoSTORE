@@ -13,6 +13,17 @@ constructor(props) {
       address:''
      }
   }
+
+  static navigationOptions =({navigation})=>({
+    backgroundColor:'red',
+ 
+      title:"OrderID:"+navigation.getParam('orderId'),
+      headerTitleStyle:{
+        fontSize:30
+       
+       
+      }
+ });
 componentDidMount(){
     this.orderDFetchData()
   }
@@ -45,7 +56,7 @@ componentDidMount(){
    <FlatList
       data={this.state.datasource}
        renderItem={({item})=>(
-        <Shadow backgroundColor='#f5f5f5'>
+        <Shadow backgroundColor='#faf0e6'>
         <View style={{flexDirection:'row',marginTop:scale(10)}}>
          <Image source={{uri:item.prod_image}} style={{height:scale(80),width:scale(120)}}/>
          <View style={{flexDirection:'column',marginLeft:20}}>

@@ -72,15 +72,7 @@ myCartCount(value){
                 <Text style={{color:'black',fontSize:scale(15),paddingLeft:scale(3)}}>{this.state.lName}</Text>
                 </View>
                 <Text style={{color:'black',fontSize:scale(15),fontWeight:'bold',paddingTop:5 ,paddingLeft:30,paddingRight:30}}>{this.state.emailId}</Text>
-               <CartContext.Consumer>
-                   {contextValue=>{
-                       return(
-                           <View>
-                           <Text style={{fontSize:20}}> Carts:{contextValue.state.count}</Text>
-                           </View>
-                       )
-                   }}
-               </CartContext.Consumer>
+           
             </View>
             <FlatList
              data={this.state.drawerInformation}
@@ -95,7 +87,7 @@ myCartCount(value){
               <Text style={DrawerStyles.textData}>{item.title}</Text>
                 
               {/* <Text style={{marginHorizontal:10}}>{item.}</Text> */}
-              <View style={{backgroundColor:'black'}}>{this.myCartCount(item.cartCount)}</View>
+              <View style={{marginHorizontal:10}}>{this.myCartCount(item.cartCount)}</View>
     
              
            </TouchableOpacity>

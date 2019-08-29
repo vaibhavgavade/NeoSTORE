@@ -3,13 +3,15 @@ import { View, Text,Image,FlatList,TouchableOpacity,StyleSheet,AsyncStorage,Safe
 import Api from '../Component/Api';
 import {scale} from 'react-native-size-matters';
 import {Shadow} from '../Component/Shadow';
+import {Indicator} from '../Component/Spinner'
 
 export default class OrderListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
       datasource:[],
-      access_token:''
+      access_token:'',
+      isLoaderLoading:true
 };
   }
   static navigationOptions =({navigation})=>({
@@ -22,12 +24,15 @@ export default class OrderListing extends Component {
     const url='orderList';
     return Api(url,method,null)
     .then(responseJson=>{
+      if(responseJson.status==200){
       console.log("Done")
       console.log("order listing data is:"+responseJson)
       this.setState({
-          datasource:responseJson.data.reverse()
+          datasource:responseJson.data.reverse(),
+          isLoaderLoading:!this.state.isLoaderLoading
         },
           function() {} )
+      }
     }).catch(err=>{
         console.error(err)
     })
@@ -39,6 +44,16 @@ export default class OrderListing extends Component {
 
 
    render() {
+    if(this.state.isLoaderLoading){
+      return(
+        <SafeAreaView style={{flex:1}}>
+        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <Indicator/>
+        </View>
+        </SafeAreaView>
+      )
+     }
+     else{
     const{navigate}=this.props.navigation;
 
     console.log('order listing data is:',this.state.datasource)
@@ -49,7 +64,7 @@ export default class OrderListing extends Component {
         <FlatList
         data={this.state.datasource}
         renderItem={({item})=>(
-          <Shadow backgroundColor='#f5f5f5'>
+          <Shadow backgroundColor='#faf0e6'>
           <View style={orderlistStyle.contaniner}>
             <TouchableOpacity onPress={()=>navigate('orderdetail',{orderId:item.id})} >
             <Text style={orderlistStyle.orderid}>Order ID:{item.id}</Text>
@@ -72,6 +87,7 @@ export default class OrderListing extends Component {
        </SafeAreaView>
       // </View> 
     );
+        }
   }
 }
 
@@ -91,7 +107,7 @@ const orderlistStyle = StyleSheet.create({
     marginTop:scale(20)
   },
   costStyle:{
-    fontSize:scale(25),
+    fontSize:scale(20),
     paddingLeft:scale(50),
   }
 })

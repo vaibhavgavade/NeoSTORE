@@ -1,15 +1,17 @@
 import React,{Component} from 'react';
-import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity} from 'react-native';
+import {View,Text,StyleSheet,FlatList,Image,TouchableOpacity,SafeAreaView} from 'react-native';
 import MyRating from '../Component/MyRating';
 import Api from '../Component/Api';
 import {scale} from 'react-native-size-matters';
 import {Shadow} from '../Component/Shadow';
+import {Indicator} from '../Component/Spinner';
 import MyConsumer from '../Context/MyConsumerComponent';
 export default class Tables extends Component{
 constructor(){
         super();
         this.state={
-            allData:[]
+            allData:[],
+            isLoaderLoading:true
           }
     }
 static navigationOptions =({navigation})=>({
@@ -27,9 +29,12 @@ static navigationOptions =({navigation})=>({
         const body = null
         return Api(url,method,body)
         .then(responseJson=>{
+          if(responseJson.status==200){
           this.setState({
-              allData:responseJson.data
+              allData:responseJson.data,
+              isLoaderLoading:!this.state.isLoaderLoading
           })
+        }
         })
         .catch(err=>{
           console.error(err)
@@ -37,6 +42,17 @@ static navigationOptions =({navigation})=>({
    }
 
     render(){
+
+      if(this.state.isLoaderLoading){
+        return(
+           <SafeAreaView style={{flex:1}}>
+           <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+             <Indicator/>
+           </View>
+           </SafeAreaView>
+         ) 
+       }
+       else{
     console.log(this.state.allData)
         return (
             <View >
@@ -44,7 +60,7 @@ static navigationOptions =({navigation})=>({
                 data={this.state.allData}
                 renderItem={({ item }) => (
                 <TouchableOpacity key={item.product_images} onPress={()=>this.props.navigation.navigate('pDetail',{productId:item.id,ProductTitle:item.name})}>
-                  <Shadow backgroundColor='#f5f5f5'>
+                  <Shadow backgroundColor='#faf0e6'>
                 <View style={{flex:1,flexDirection:'row',margin:scale(5)}}>
               <Image  source={{uri:item.product_images}} style={{height:scale(70), width:scale(90)}}/>
              <View style={{flex:5,marginHorizontal:15}}>
@@ -65,6 +81,7 @@ static navigationOptions =({navigation})=>({
               />
             </View>
           );
+                }
     }
 }
 

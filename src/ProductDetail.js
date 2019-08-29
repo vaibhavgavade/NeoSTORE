@@ -7,6 +7,7 @@ import CartContext from '../Context/context'
 import Api from '../Component/Api';
 import {scale,verticalScale} from 'react-native-size-matters';
 import ModalShadow from '../Component/ModalShadow';
+import InputSpinner from 'react-native-input-spinner';
 const {height,width}=Dimensions.get('window');
 
 //import share from 'react-native-share';
@@ -248,7 +249,15 @@ addToCart(contextValue){
 
                       <Text style={{fontSize:scale(20),fontWeight:'bold', paddingHorizontal:scale(50)}}>Enter Quantity</Text>
                         <View style={{justifyContent:'center',alignItems:'center',paddingVertical:scale(10)}}>
-                      <TextInput style={ProductStyle.textinput}  onChangeText={(quantity)=>this.setState({quantity:quantity})}/>
+                      {/* <TextInput style={ProductStyle.textinput}  onChangeText={(quantity)=>this.setState({quantity:quantity})}/> */}
+                      <InputSpinner
+                      backround='transparent'
+                      max={8}
+                      min={1}
+                      height={30}
+                      width={100}
+                      onChange={(quantity)=>{this.setState({quantity:quantity})}}
+                      />
                       </View>
                      
                         <View style={ProductStyle.buttonstyles}>
@@ -334,21 +343,18 @@ const ProductStyle = StyleSheet.create({
 
      
     },
-
     modal:{
         flex:1,
         justifyContent:'center',
         alignItems:'center',
         backgroundColor:'white',
-         marginTop:scale(150),
-        //  marginBottom: scale(10),
-        // marginLeft:scale(20),
-        // marginRight:scale(30),
-        borderWidth:scale(2),
-        borderColor:'#2f4f4f',
-        // borderRadius:scale(10),
-        
-        // width:width
+        marginTop:scale(140),
+         marginBottom: scale(140),
+        marginLeft:scale(30),
+        marginRight:scale(30),
+        borderWidth:scale(5),
+        borderColor:'#ff0000',
+        borderRadius:scale(10)
     },
     modalatext:{
         fontSize:scale(18),
@@ -367,7 +373,8 @@ const ProductStyle = StyleSheet.create({
       
         alignSelf:'center',
         borderRadius:scale(10),
-        marginTop:scale(10)
+        marginTop:scale(15),
+        marginBottom:scale(10)
 
       
        
@@ -388,7 +395,7 @@ const ProductStyle = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         flexDirection:'row',
-        marginTop:scale(5)
+        marginTop:scale(10)
     },
     ratingImg:{
         width:scale(30),

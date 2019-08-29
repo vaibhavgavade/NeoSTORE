@@ -113,6 +113,7 @@ Tables:{
 orderList:{
   screen:OrderListing,
   navigationOptions:{
+    headerBackTitle:null,
     title:'My order',
     headerStyle:{
       backgroundColor:'red'

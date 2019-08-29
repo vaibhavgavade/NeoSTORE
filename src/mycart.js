@@ -19,7 +19,7 @@ constructor(props){
             total:'',
             quantity:'',
             myid:null,
-            cartCount:''
+            cartCount:'',
         }
     };
     onopenSwipe(id){
@@ -112,7 +112,7 @@ static navigationOptions =({navigation})=>({
                 <FlatList
                    data={this.state.datasource}
                    renderItem={({item})=>(
-             <Shadow backgroundColor='#f5f5f5'>   
+             <Shadow backgroundColor='#faf0e6'>   
             <View style={{marginTop: 20,marginLeft:10,flexDirection:'row'}}>
                 
                 {/* <Swipeout 
@@ -121,7 +121,7 @@ static navigationOptions =({navigation})=>({
                 backgroundColor="transparent"
                 onOpen={this.onopenSwipe(item.product.id)}
                 onClose={this.oncloseSwipe(item.product.id)}> */}
-                <Image source={{uri:item.product.product_images}} style={{width:scale(138),height:scale(110),marginLeft:scale(5),borderRadius:scale(5)}}/>
+                <Image source={{uri:item.product.product_images}} style={{width:scale(100),height:scale(100),marginLeft:scale(5),borderRadius:scale(5)}}/>
                 <View style={{flexDirection:'column',marginTop:scale(15)}}>
                     <Text style={{fontSize:scale(15),marginLeft:7}}>{item.product.name}</Text>
                
@@ -154,7 +154,7 @@ static navigationOptions =({navigation})=>({
                        return(
                         <TouchableOpacity onPress={()=>this.deleteCart(item.product.id,contextValue)}>
                                                    
-                        <Ionicons name="md-trash" color="red" size={scale(20)} />
+                        <Ionicons name="md-trash" color="red" size={scale(40)} />
                         </TouchableOpacity>
                        )
                    }}
