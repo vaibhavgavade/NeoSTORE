@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.0",
-    "jest-expo": "^33.0.0",
+    "jest-expo": "^54.0.16",
     "reactotron-react-native": "^3.6.4"
   },
   "rnpm": {
